@@ -151,22 +151,22 @@
 
   <!-- Ultra-Dynamic Floating Royal Header Wrapper -->
   <div class="navbar-royal-wrapper no-print">
-    <header class="navbar-royal py-2 px-3.5 sm:px-6 flex items-center justify-between gap-2">
+    <header class="navbar-royal py-2 px-2.5 sm:px-4 md:px-5 flex items-center justify-between gap-1.5 sm:gap-2 flex-nowrap">
       
       <!-- Brand Logo with Glowing Lotus & Golden Shimmer -->
-      <a href="#hero" class="flex items-center gap-2 sm:gap-2.5 group shrink-0">
-        <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-gradient-to-br from-[#FFFDF9] via-[#FAF6F0] to-[#FCEEE9] border border-[#DFBE76] shadow-sm text-[#88243C] group-hover:scale-105 group-hover:border-[#88243C] transition-all">
-          <span class="text-sm sm:text-base select-none group-hover:rotate-12 transition-transform inline-block">🪷</span>
+      <a href="#hero" class="flex items-center gap-1.5 sm:gap-2.5 group shrink-0 min-w-0">
+        <div class="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-gradient-to-br from-[#FFFDF9] via-[#FAF6F0] to-[#FCEEE9] border border-[#DFBE76] shadow-sm text-[#88243C] group-hover:scale-105 group-hover:border-[#88243C] transition-all shrink-0">
+          <span class="text-xs sm:text-base select-none group-hover:rotate-12 transition-transform inline-block">🪷</span>
           <span class="absolute -inset-0.5 rounded-full border border-[#DFBE76]/40 animate-ping opacity-25"></span>
         </div>
-        <div class="leading-tight">
-          <span class="font-serif font-bold text-base sm:text-lg tracking-wider text-[#6E1A2D] block group-hover:text-[#88243C] transition-colors">MEENAKSHI</span>
-          <span class="text-[8px] sm:text-[9px] tracking-[0.2em] uppercase block text-[#99742B] font-semibold">Biodata • विवाह बायोडाटा</span>
+        <div class="leading-tight shrink-0">
+          <span class="font-serif font-bold text-sm sm:text-base md:text-lg tracking-wider text-[#6E1A2D] block group-hover:text-[#88243C] transition-colors">MEENAKSHI</span>
+          <span class="text-[7.5px] sm:text-[9px] tracking-[0.18em] uppercase block text-[#99742B] font-semibold">Biodata • विवाह बायोडाटा</span>
         </div>
       </a>
 
-      <!-- Desktop Dynamic Navigation Links -->
-      <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-xs uppercase tracking-wider font-semibold text-[#523F42]">
+      <!-- Desktop Dynamic Navigation Links (Active on xl: 1280px+) -->
+      <nav class="hidden xl:flex items-center space-x-1 2xl:space-x-2 text-xs uppercase tracking-wider font-semibold text-[#523F42] shrink-0">
         <a href="#hero" class="nav-link-dynamic">Overview</a>
         <a href="#gallery" class="nav-link-dynamic text-[#88243C] flex items-center gap-1 font-bold">
           <span class="text-[#C5A059] animate-pulse">✦</span>
@@ -180,12 +180,12 @@
         <a href="#contact" class="nav-link-dynamic">Contact</a>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <!-- Action Buttons Group (shrink-0, perfectly fitted inside container) -->
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0">
         <!-- Ultra-Dynamic Audio Indicator Pill Button -->
-        <button id="nav-audio-btn" onclick="toggleAudio()" title="Wedding Song: Din Shagna Da (Looping 🔁)" class="nav-audio-pill flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#6E1A2D] cursor-pointer shadow-xs hover:border-[#88243C] transition-all">
+        <button id="nav-audio-btn" onclick="toggleAudio()" title="Wedding Song: Din Shagna Da (Looping 🔁)" class="nav-audio-pill flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold text-[#6E1A2D] cursor-pointer shadow-xs hover:border-[#88243C] transition-all shrink-0">
           <i id="audio-icon" data-lucide="volume-x" class="w-3.5 h-3.5 text-[#88243C]"></i>
-          <span class="hidden sm:inline text-[11px] font-serif text-[#88243C]">Din Shagna Da</span>
+          <span class="hidden md:inline text-[11px] font-serif text-[#88243C]">Din Shagna Da</span>
           <div class="audio-eq-bars flex items-end gap-0.5 h-3 ml-0.5" id="nav-eq-bars">
             <span class="eq-bar h-1"></span>
             <span class="eq-bar h-2"></span>
@@ -193,26 +193,26 @@
           </div>
         </button>
 
-        <!-- Share Button (Desktop) -->
-        <button onclick="shareProfile()" title="Share Profile" class="hidden xl:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs cursor-pointer">
+        <!-- Share Button (Desktop 2xl+) -->
+        <button onclick="shareProfile()" title="Share Profile" class="hidden 2xl:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs cursor-pointer shrink-0">
           <i data-lucide="share-2" class="w-3 h-3 text-[#88243C]"></i>
           <span>Share</span>
         </button>
 
-        <!-- Edit Profile Button (Desktop) -->
-        <button onclick="openEditor()" title="Edit Profile Details" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059] bg-[#FDFBF7] text-xs font-medium text-[#88243C] hover:bg-[#88243C] hover:text-white transition-all shadow-xs cursor-pointer">
-          <i data-lucide="edit-3" class="w-3 h-3"></i>
-          <span>Edit</span>
+        <!-- Edit Profile Button (Compact on mobile, labeled on sm+) -->
+        <button onclick="openEditor()" title="Edit Profile Details" class="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[#C5A059] bg-[#FDFBF7] text-xs font-medium text-[#88243C] hover:bg-[#88243C] hover:text-white transition-all shadow-xs cursor-pointer shrink-0">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Edit</span>
         </button>
 
         <!-- Dynamic Golden PDF Button with Continuous Shimmer -->
-        <button onclick="downloadPDF()" class="btn-shimmer inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-[#88243C] via-[#A8324E] to-[#6E1A2D] text-white text-xs font-semibold shadow-md hover:shadow-lg hover:brightness-110 active:scale-95 transition-all border border-[#DFBE76]/70 cursor-pointer">
+        <button onclick="downloadPDF()" title="Download PDF Biodata" class="btn-shimmer inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-[#88243C] via-[#A8324E] to-[#6E1A2D] text-white text-xs font-semibold shadow-md hover:shadow-lg hover:brightness-110 active:scale-95 transition-all border border-[#DFBE76]/70 cursor-pointer shrink-0">
           <i data-lucide="download" class="w-3.5 h-3.5 text-[#F3E5AB]"></i>
           <span class="tracking-wide">PDF<span class="hidden sm:inline"> Biodata</span></span>
         </button>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="lg:hidden p-1.5 sm:p-2 text-[#6E1A2D] hover:bg-[#FCEEE9] rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] transition-all cursor-pointer">
+        <!-- Mobile & Tablet Menu Toggle Button (Visible on < xl) -->
+        <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="xl:hidden p-1 sm:p-1.5 md:p-2 text-[#6E1A2D] hover:bg-[#FCEEE9] rounded-xl border border-[#C5A059]/40 bg-[#FDFBF7] transition-all cursor-pointer shrink-0">
           <i id="mobile-menu-icon" data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </button>
       </div>
@@ -220,7 +220,7 @@
     </header>
 
     <!-- Ultra-Luxury Mobile Drawer (Smooth Dropdown Card) -->
-    <div id="mobile-menu" class="hidden lg:hidden mt-2 p-3 sm:p-4 rounded-3xl bg-[#FFFDF9]/95 backdrop-blur-xl border border-[#DFBE76]/60 shadow-2xl space-y-3">
+    <div id="mobile-menu" class="hidden xl:hidden mt-2 p-3 sm:p-4 rounded-3xl bg-[#FFFDF9]/95 backdrop-blur-xl border border-[#DFBE76]/60 shadow-2xl space-y-3">
       <!-- Section Links Grid -->
       <nav class="grid grid-cols-1 gap-1.5 text-xs font-medium text-[#4A3B3E]">
         <a href="#hero" onclick="closeMobileMenu()" class="mobile-nav-item flex items-center justify-between p-2.5 rounded-xl hover:bg-[#FCEEE9]/60 transition-colors border border-transparent hover:border-[#C5A059]/30">

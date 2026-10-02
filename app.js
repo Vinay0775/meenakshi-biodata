@@ -1472,6 +1472,7 @@ function closeMobileMenu() {
     if (window.lucide) window.lucide.createIcons();
   }
 }
+window.closeMobileMenu = closeMobileMenu;
 
   // Mobile menu toggle
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
