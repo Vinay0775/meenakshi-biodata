@@ -1463,12 +1463,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+function closeMobileMenu() {
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileIcon = document.getElementById('mobile-menu-icon');
+  if (mobileMenu) mobileMenu.classList.add('hidden');
+  if (mobileIcon) {
+    mobileIcon.setAttribute('data-lucide', 'menu');
+    if (window.lucide) window.lucide.createIcons();
+  }
+}
+
   // Mobile menu toggle
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
+  const mobileIcon = document.getElementById('mobile-menu-icon');
   if (mobileMenuBtn && mobileMenu) {
     mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+      const isClosed = mobileMenu.classList.toggle('hidden');
+      if (mobileIcon) {
+        mobileIcon.setAttribute('data-lucide', isClosed ? 'menu' : 'x');
+        if (window.lucide) window.lucide.createIcons();
+      }
     });
   }
 
