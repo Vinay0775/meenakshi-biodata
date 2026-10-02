@@ -5,6 +5,7 @@
   --color-maroon-dark: #4A0E1C;
   --color-gold: #C5A059;
   --color-gold-light: #DFBE76;
+  --color-gold-deep: #B38728;
   --color-champagne: #F5EFEB;
   --color-ivory: #FDFBF7;
   --color-rose: #FCEEE9;
@@ -14,6 +15,8 @@ body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: #FAF6F0;
   color: #2D2224;
+  position: relative;
+  min-height: 100vh;
 }
 
 h1, h2, h3, .font-serif {
@@ -32,12 +35,101 @@ h1, h2, h3, .font-serif {
   font-family: 'Rozha One', serif;
 }
 
-/* Background Mandala Pattern */
+/* Background Mandala & Shaadi Motif Pattern */
 .bg-mandala-pattern {
-  background-image: radial-gradient(circle at center, rgba(197, 160, 89, 0.08) 1px, transparent 1px),
-                    radial-gradient(circle at center, rgba(110, 26, 45, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
+  background-image: 
+    radial-gradient(circle at center, rgba(197, 160, 89, 0.12) 1.5px, transparent 1.5px),
+    radial-gradient(circle at center, rgba(110, 26, 45, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+  background-position: 0 0, 18px 18px;
+}
+
+/* Traditional Shaadi Royal Jaali Overlay */
+.shaadi-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(223, 190, 118, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 10% 25%, rgba(136, 36, 60, 0.05) 0%, transparent 35%),
+    radial-gradient(circle at 90% 35%, rgba(197, 160, 89, 0.06) 0%, transparent 35%);
+}
+
+/* Shaadi Corner & Side Watermark Motifs */
+.shaadi-motif-left,
+.shaadi-motif-right {
+  position: fixed;
+  top: 15%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.18;
+  transition: opacity 0.5s ease;
+}
+
+.shaadi-motif-left {
+  left: 0.5rem;
+}
+
+.shaadi-motif-right {
+  right: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .shaadi-motif-left,
+  .shaadi-motif-right {
+    opacity: 0.08;
+    transform: scale(0.75);
+  }
+}
+
+/* Hanging Indian Wedding Toran Garland */
+.wedding-toran-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto -8px auto;
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+  height: 48px;
+  opacity: 0.95;
+}
+
+.wedding-toran {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  transform: translateY(-4px);
+  animation: toranSway 6s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+
+@keyframes toranSway {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(1.5px) rotate(0.4deg); }
+  100% { transform: translateY(0px) rotate(-0.4deg); }
+}
+
+.toran-bell {
+  transform-origin: top center;
+  animation: bellChime 3.5s ease-in-out infinite;
+}
+
+@keyframes bellChime {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(4deg); }
+  75% { transform: rotate(-4deg); }
+}
+
+/* Floating Flower Petals Canvas */
+#wedding-petals-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 30;
 }
 
 /* Royal Shadows & Borders */
@@ -56,6 +148,122 @@ h1, h2, h3, .font-serif {
 .royal-hover-lift:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 28px -4px rgba(110, 26, 45, 0.12), 0 4px 10px -2px rgba(197, 160, 89, 0.2);
+}
+
+/* Music Equalizer Animation */
+.eq-bar {
+  width: 3px;
+  background: #C5A059;
+  border-radius: 2px;
+  display: inline-block;
+  transform-origin: bottom;
+  transition: height 0.2s ease;
+}
+
+.playing .eq-bar:nth-child(1) {
+  animation: eqBounce1 0.8s ease-in-out infinite alternate;
+}
+.playing .eq-bar:nth-child(2) {
+  animation: eqBounce2 0.6s ease-in-out infinite alternate 0.15s;
+}
+.playing .eq-bar:nth-child(3) {
+  animation: eqBounce3 0.9s ease-in-out infinite alternate 0.3s;
+}
+.playing .eq-bar:nth-child(4) {
+  animation: eqBounce2 0.7s ease-in-out infinite alternate 0.2s;
+}
+
+@keyframes eqBounce1 {
+  0% { height: 4px; }
+  100% { height: 16px; }
+}
+@keyframes eqBounce2 {
+  0% { height: 6px; }
+  100% { height: 18px; }
+}
+@keyframes eqBounce3 {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+/* Shimmer pulse for wedding gold */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(197, 160, 89, 0); }
+}
+
+.pulse-gold {
+  animation: goldPulse 2.5s infinite;
+}
+
+/* Floating Musical Notes Animation */
+.floating-note {
+  position: absolute;
+  pointer-events: none;
+  font-size: 14px;
+  color: #C5A059;
+  z-index: 50;
+  animation: floatNote 2.4s ease-out forwards;
+}
+
+@keyframes floatNote {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 0.95;
+    transform: translate(calc(var(--rand-x, 0) * 12px), -18px) scale(1.1);
+  }
+  80% {
+    opacity: 0.7;
+    transform: translate(calc(var(--rand-x, 0) * 28px), -50px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--rand-x, 0) * 36px), -75px) scale(0.9);
+  }
+}
+
+/* Audio Progress Bar Styling */
+.audio-progress-track {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(197, 160, 89, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  transition: height 0.15s ease;
+}
+
+.audio-progress-track:hover {
+  height: 8px;
+}
+
+.audio-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #88243C, #C5A059);
+  border-radius: 9999px;
+  transition: width 0.1s linear;
+}
+
+/* Mobile Responsiveness Tweaks */
+@media (max-width: 640px) {
+  .wedding-toran-container {
+    height: 38px;
+  }
+  .wedding-toran {
+    transform: translateY(-8px) scale(0.85);
+  }
+  .shaadi-motif-left,
+  .shaadi-motif-right {
+    display: none !important;
+  }
+  #floating-music-bar {
+    max-width: 100% !important;
+  }
 }
 
 /* Custom Scrollbar */
@@ -85,7 +293,13 @@ h1, h2, h3, .font-serif {
     color: #111111 !important;
   }
 
-  .no-print {
+  .no-print,
+  .shaadi-backdrop,
+  .wedding-toran-container,
+  #wedding-petals-canvas,
+  .shaadi-motif-left,
+  .shaadi-motif-right,
+  #floating-music-bar {
     display: none !important;
   }
 

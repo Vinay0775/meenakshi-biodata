@@ -62,11 +62,43 @@ const defaultData = {
 let currentData = loadData();
 let activePhotoKey = 'primary';
 let isContactRevealed = false;
+
+// Royal Shaadi Music & Visual Atmosphere State
+const weddingTracks = [
+  {
+    id: 'din-shagna',
+    title: 'Din Shagna Da (विवाह धुन)',
+    subtitle: 'Traditional Rhythmic Wedding Theme',
+    src: 'audio/wedding-theme.mp3',
+    badge: 'Track 1/3 • Bridal Melody'
+  },
+  {
+    id: 'shehnai-mangal',
+    title: 'Shehnai & Dholak Mangal Dhun',
+    subtitle: 'Festive Dadra Taal Wedding Beat',
+    src: 'audio/shehnai-mangal-dhun.mp3',
+    badge: 'Track 2/3 • Shehnai Utsav'
+  },
+  {
+    id: 'rhythmic-theka',
+    title: 'Live Shaadi Dholak & Shehnai Groove',
+    subtitle: 'Traditional Keherwa Wedding Theka',
+    src: null, // Pure Web Audio live rhythmic percussion
+    badge: 'Track 3/3 • Live Synthesis'
+  }
+];
+
+let currentTrackIndex = 0;
 let isAudioPlaying = false;
+let audioVolume = 0.6;
+let weddingAudioEl = null;
 let audioContext = null;
-let masterGain = null;
-let oscillators = [];
-let chimeInterval = null;
+let synthMasterGain = null;
+let dholakTimer = null;
+let shehnaiTimer = null;
+let isMusicPlayerMinimized = false;
+let isPetalsActive = true;
+let petalsAnimationId = null;
 
 function loadData() {
   try {
@@ -584,102 +616,616 @@ async function shareProfile() {
   showToast('Profile link copied to clipboard!');
 }
 
-// Ambient Audio
-function toggleAudio() {
-  if (isAudioPlaying) {
-    stopAudio();
-    isAudioPlaying = false;
-    showToast('Ambient music muted');
-    updateAudioIcon(false);
-  } else {
-    playAudio();
-    isAudioPlaying = true;
-    showToast('Playing traditional ambient music');
-    updateAudioIcon(true);
+// ==========================================
+// Royal Shaadi Wedding Music & Visual Atmosphere
+// ==========================================
+
+let noteInterval = null;
+let previousVolume = 0.6;
+let synthStepCount = 0;
+
+function initWeddingAudio() {
+  weddingAudioEl = document.getElementById('wedding-audio-player');
+  if (weddingAudioEl) {
+    weddingAudioEl.volume = audioVolume;
+    weddingAudioEl.addEventListener('ended', () => {
+      nextTrack();
+    });
+    weddingAudioEl.addEventListener('timeupdate', updateAudioProgress);
+    weddingAudioEl.addEventListener('loadedmetadata', updateAudioProgress);
+    weddingAudioEl.addEventListener('error', (e) => {
+      console.warn('Audio stream error, switching to rhythmic synthesis fallback:', e);
+      if (isAudioPlaying) {
+        startRhythmicSynth();
+      }
+    });
+  }
+  updatePlayerTrackDisplay();
+
+  // On mobile devices (< 640px), start minimized as a sleek floating bottom pill
+  if (window.innerWidth < 640) {
+    isMusicPlayerMinimized = true;
+    const body = document.getElementById('music-player-expanded-body');
+    const icon = document.getElementById('minimize-icon');
+    if (body) body.classList.add('hidden');
+    if (icon) icon.setAttribute('data-lucide', 'chevron-up');
+    if (window.lucide) window.lucide.createIcons();
   }
 }
 
-function playAudio() {
+function formatTime(seconds) {
+  if (isNaN(seconds) || seconds < 0) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+function updateAudioProgress() {
+  const fill = document.getElementById('audio-progress-fill');
+  const currentEl = document.getElementById('audio-current-time');
+  const durEl = document.getElementById('audio-duration');
+  const miniStatus = document.getElementById('player-mini-status');
+  const track = weddingTracks[currentTrackIndex];
+
+  if (weddingAudioEl && track.src) {
+    const current = weddingAudioEl.currentTime || 0;
+    const total = weddingAudioEl.duration || 0;
+    if (fill && total > 0) {
+      fill.style.width = `${(current / total) * 100}%`;
+    }
+    if (currentEl) currentEl.textContent = formatTime(current);
+    if (durEl) durEl.textContent = total > 0 ? formatTime(total) : '--:--';
+
+    if (miniStatus) {
+      if (isAudioPlaying && total > 0) {
+        miniStatus.textContent = `${track.title} • ${formatTime(current)} / ${formatTime(total)}`;
+      } else {
+        miniStatus.textContent = track.title;
+      }
+    }
+  } else {
+    // Synth track simulation
+    if (currentEl) currentEl.textContent = formatTime(synthStepCount);
+    if (durEl) durEl.textContent = 'Live Loop';
+    if (fill) fill.style.width = `${(synthStepCount % 60) * 1.66}%`;
+    if (miniStatus) {
+      miniStatus.textContent = isAudioPlaying ? `${track.title} • Live Dholak` : track.title;
+    }
+  }
+}
+
+function seekAudio(e) {
+  const track = weddingTracks[currentTrackIndex];
+  if (!track.src || !weddingAudioEl || !weddingAudioEl.duration) return;
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  if (width > 0) {
+    const seekTime = (clickX / width) * weddingAudioEl.duration;
+    weddingAudioEl.currentTime = seekTime;
+    updateAudioProgress();
+  }
+}
+
+function updatePlayerTrackDisplay() {
+  const track = weddingTracks[currentTrackIndex];
+  const titleEl = document.getElementById('player-track-title');
+  const subEl = document.getElementById('player-track-subtitle');
+  const badgeEl = document.getElementById('player-track-badge');
+  const miniStatus = document.getElementById('player-mini-status');
+
+  if (titleEl) titleEl.textContent = track.title;
+  if (subEl) subEl.textContent = track.subtitle;
+  if (badgeEl) badgeEl.textContent = track.badge;
+  if (miniStatus) miniStatus.textContent = track.title;
+
+  updateAudioProgress();
+}
+
+function toggleAudio() {
+  if (isAudioPlaying) {
+    pauseAudio();
+  } else {
+    playCurrentTrack();
+  }
+}
+
+function playCurrentTrack() {
+  const track = weddingTracks[currentTrackIndex];
+  isAudioPlaying = true;
+
+  if (track.src && weddingAudioEl) {
+    stopRhythmicSynth();
+    if (weddingAudioEl.src !== window.location.origin + '/' + track.src && !weddingAudioEl.src.endsWith(track.src)) {
+      weddingAudioEl.src = track.src;
+    }
+    weddingAudioEl.volume = audioVolume;
+    const playPromise = weddingAudioEl.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        updateAudioUI(true);
+        startFloatingNotes();
+        showToast(`Playing: ${track.title}`);
+      }).catch(err => {
+        console.log('Audio playback permission or file load error, switching to rhythmic synth:', err);
+        startRhythmicSynth();
+        updateAudioUI(true);
+        startFloatingNotes();
+        showToast(`Playing: ${weddingTracks[2].title}`);
+      });
+    }
+  } else {
+    if (weddingAudioEl) {
+      weddingAudioEl.pause();
+    }
+    startRhythmicSynth();
+    updateAudioUI(true);
+    startFloatingNotes();
+    showToast(`Playing: ${track.title}`);
+  }
+  updatePlayerTrackDisplay();
+}
+
+function pauseAudio() {
+  isAudioPlaying = false;
+  if (weddingAudioEl) {
+    weddingAudioEl.pause();
+  }
+  stopRhythmicSynth();
+  stopFloatingNotes();
+  updateAudioUI(false);
+  showToast('Wedding music paused');
+}
+
+function nextTrack() {
+  currentTrackIndex = (currentTrackIndex + 1) % weddingTracks.length;
+  updatePlayerTrackDisplay();
+  if (isAudioPlaying) {
+    playCurrentTrack();
+  } else {
+    showToast(`Selected: ${weddingTracks[currentTrackIndex].title}`);
+  }
+}
+
+function prevTrack() {
+  currentTrackIndex = (currentTrackIndex - 1 + weddingTracks.length) % weddingTracks.length;
+  updatePlayerTrackDisplay();
+  if (isAudioPlaying) {
+    playCurrentTrack();
+  } else {
+    showToast(`Selected: ${weddingTracks[currentTrackIndex].title}`);
+  }
+}
+
+function changeVolume(val) {
+  audioVolume = parseFloat(val);
+  if (weddingAudioEl) {
+    weddingAudioEl.volume = audioVolume;
+  }
+  if (synthMasterGain && audioContext && audioContext.state !== 'closed') {
+    synthMasterGain.gain.setValueAtTime(audioVolume * 0.22, audioContext.currentTime);
+  }
+  const icon = document.getElementById('volume-icon-btn');
+  if (icon) {
+    icon.setAttribute('data-lucide', audioVolume === 0 ? 'volume-x' : audioVolume < 0.5 ? 'volume-1' : 'volume-2');
+    if (window.lucide) window.lucide.createIcons();
+  }
+}
+
+function toggleMute() {
+  const slider = document.getElementById('music-volume-slider');
+  if (audioVolume > 0) {
+    previousVolume = audioVolume;
+    changeVolume(0);
+    if (slider) slider.value = '0';
+  } else {
+    const restore = previousVolume > 0 ? previousVolume : 0.6;
+    changeVolume(restore);
+    if (slider) slider.value = restore.toString();
+  }
+}
+
+function toggleMusicPlayerFromHeader(e) {
+  if (e.target.closest('button')) return;
+  toggleMusicPlayerMinimized();
+}
+
+function toggleMusicPlayerMinimized() {
+  isMusicPlayerMinimized = !isMusicPlayerMinimized;
+  const body = document.getElementById('music-player-expanded-body');
+  const icon = document.getElementById('minimize-icon');
+  if (body) {
+    body.classList.toggle('hidden', isMusicPlayerMinimized);
+  }
+  if (icon) {
+    icon.setAttribute('data-lucide', isMusicPlayerMinimized ? 'chevron-up' : 'chevron-down');
+    if (window.lucide) window.lucide.createIcons();
+  }
+}
+
+function startFloatingNotes() {
+  if (noteInterval) clearInterval(noteInterval);
+  const notes = ['♪', '♫', '🪷', '✦', '✨'];
+  noteInterval = setInterval(() => {
+    if (!isAudioPlaying) return;
+    const dock = document.getElementById('floating-music-bar');
+    if (!dock) return;
+    const note = document.createElement('span');
+    note.className = 'floating-note';
+    note.textContent = notes[Math.floor(Math.random() * notes.length)];
+    const randX = (Math.random() - 0.5) * 2;
+    note.style.setProperty('--rand-x', randX);
+    note.style.left = `${25 + Math.random() * 50}%`;
+    note.style.top = '10px';
+    dock.appendChild(note);
+    setTimeout(() => {
+      note.remove();
+    }, 2400);
+  }, 1400);
+}
+
+function stopFloatingNotes() {
+  if (noteInterval) {
+    clearInterval(noteInterval);
+    noteInterval = null;
+  }
+}
+
+function updateAudioUI(playing) {
+  // Update Navbar button icon
+  const navIcon = document.getElementById('audio-icon');
+  const navBtn = document.getElementById('nav-audio-btn');
+  if (navIcon) {
+    navIcon.setAttribute('data-lucide', playing ? 'volume-2' : 'volume-x');
+  }
+  if (navBtn) {
+    if (playing) {
+      navBtn.classList.add('pulse-gold', 'bg-[#FCEEE9]', 'text-[#88243C]');
+    } else {
+      navBtn.classList.remove('pulse-gold', 'bg-[#FCEEE9]', 'text-[#88243C]');
+    }
+  }
+
+  // Update floating dock main play button
+  const playBtnText = document.getElementById('player-play-text');
+  const playBtnIcon = document.getElementById('player-play-icon');
+  if (playBtnText) {
+    playBtnText.textContent = playing ? 'Pause Music' : 'Play Wedding Music';
+  }
+  if (playBtnIcon) {
+    playBtnIcon.setAttribute('data-lucide', playing ? 'pause' : 'play');
+  }
+
+  // Update mini play button
+  const miniPlayIcon = document.getElementById('player-mini-play-icon');
+  if (miniPlayIcon) {
+    miniPlayIcon.setAttribute('data-lucide', playing ? 'pause' : 'play');
+  }
+
+  // Update Equalizer animation bars
+  const eqBars = document.getElementById('audio-eq-bars');
+  if (eqBars) {
+    if (playing) {
+      eqBars.classList.add('playing');
+    } else {
+      eqBars.classList.remove('playing');
+    }
+  }
+
+  // Rotate music disc
+  const disc = document.getElementById('music-disc-icon');
+  if (disc) {
+    if (playing) {
+      disc.style.transform = 'rotate(360deg)';
+      disc.style.transition = 'transform 3s linear infinite';
+    } else {
+      disc.style.transform = 'none';
+      disc.style.transition = 'transform 0.5s ease';
+    }
+  }
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+// ==========================================
+// Rhythmic Wedding Synth (Live Dholak & Shehnai)
+// ==========================================
+function startRhythmicSynth() {
+  stopRhythmicSynth();
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
     audioContext = new AudioCtx();
-    masterGain = audioContext.createGain();
-    masterGain.gain.setValueAtTime(0.01, audioContext.currentTime);
-    masterGain.gain.linearRampToValueAtTime(0.12, audioContext.currentTime + 3);
-    masterGain.connect(audioContext.destination);
+    synthMasterGain = audioContext.createGain();
+    synthMasterGain.gain.setValueAtTime(audioVolume * 0.22, audioContext.currentTime);
+    synthMasterGain.connect(audioContext.destination);
 
-    const baseFreq = 138.59;
-    const notes = [baseFreq * 0.75, baseFreq, baseFreq * 1.5, baseFreq * 2];
+    let step = 0;
+    const tempoMs = 145; // ~104 BPM energetic festive Keherwa rhythm
 
-    oscillators = notes.map((freq, idx) => {
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-      osc.frequency.setValueAtTime(freq, audioContext.currentTime);
-      gain.gain.setValueAtTime(0.2, audioContext.currentTime);
-      osc.connect(gain);
-      gain.connect(masterGain);
-      osc.start();
-      return osc;
+    dholakTimer = setInterval(() => {
+      if (!audioContext || audioContext.state === 'closed') return;
+      playDholakStep(step);
+      step = (step + 1) % 8;
+      synthStepCount++;
+      if (synthStepCount % 4 === 0) updateAudioProgress();
+    }, tempoMs);
+
+    // Shehnai melody cycle in Raag Bilawal (Traditional Auspicious Wedding Raga)
+    let melodyStep = 0;
+    const shehnaiNotes = [
+      523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33,
+      523.25, 659.25, 783.99, 1046.50, 880.00, 783.99, 659.25, 523.25
+    ];
+
+    shehnaiTimer = setInterval(() => {
+      if (!audioContext || audioContext.state === 'closed') return;
+      playShehnaiNote(shehnaiNotes[melodyStep % shehnaiNotes.length]);
+      melodyStep++;
+    }, tempoMs * 2);
+
+  } catch (err) {
+    console.warn('Synth initialization failed:', err);
+  }
+}
+
+function playDholakStep(step) {
+  if (!audioContext || !synthMasterGain || audioContext.state === 'closed') return;
+  const now = audioContext.currentTime;
+
+  // Indian Dholak Pattern:
+  // Step 0: Dha (Bass + Treble)
+  // Step 1: Ge (Bass resonance)
+  // Step 2: Na (Treble snap)
+  // Step 3: Tin (Treble ring)
+  // Step 4: Dha (Bass + Treble accent)
+  // Step 5: Ge (Bass resonance)
+  // Step 6: Tin (Treble open)
+  // Step 7: Ta (Treble crisp snap)
+
+  const isBass = (step === 0 || step === 1 || step === 4 || step === 5);
+  const isTreble = (step === 0 || step === 2 || step === 3 || step === 4 || step === 6 || step === 7);
+
+  if (isBass) {
+    const bassOsc = audioContext.createOscillator();
+    const bassGain = audioContext.createGain();
+    bassOsc.type = 'sine';
+    const startFreq = (step === 0 || step === 4) ? 140 : 105;
+    const endFreq = (step === 0 || step === 4) ? 65 : 55;
+    bassOsc.frequency.setValueAtTime(startFreq, now);
+    bassOsc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.12);
+
+    bassGain.gain.setValueAtTime(0.35, now);
+    bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+    bassOsc.connect(bassGain);
+    bassGain.connect(synthMasterGain);
+    bassOsc.start(now);
+    bassOsc.stop(now + 0.19);
+  }
+
+  if (isTreble) {
+    const trebleOsc = audioContext.createOscillator();
+    const trebleGain = audioContext.createGain();
+    trebleOsc.type = 'triangle';
+    const trebleFreq = (step === 2 || step === 7) ? 480 : 560;
+    trebleOsc.frequency.setValueAtTime(trebleFreq, now);
+    trebleGain.gain.setValueAtTime(step === 7 ? 0.28 : 0.18, now);
+    trebleGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+    trebleOsc.connect(trebleGain);
+    trebleGain.connect(synthMasterGain);
+    trebleOsc.start(now);
+    trebleOsc.stop(now + 0.09);
+  }
+}
+
+function playShehnaiNote(freq) {
+  if (!audioContext || !synthMasterGain || audioContext.state === 'closed') return;
+  const now = audioContext.currentTime;
+
+  const osc1 = audioContext.createOscillator();
+  const osc2 = audioContext.createOscillator();
+  const filter = audioContext.createBiquadFilter();
+  const noteGain = audioContext.createGain();
+
+  // Nasal, joyous, reedy timbre of Shehnai
+  osc1.type = 'sawtooth';
+  osc2.type = 'triangle';
+  osc1.frequency.setValueAtTime(freq, now);
+  osc2.frequency.setValueAtTime(freq * 1.004, now);
+
+  filter.type = 'bandpass';
+  filter.frequency.setValueAtTime(1800, now);
+  filter.Q.setValueAtTime(2.5, now);
+
+  noteGain.gain.setValueAtTime(0.001, now);
+  noteGain.gain.linearRampToValueAtTime(0.14, now + 0.04);
+  noteGain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+
+  osc1.connect(filter);
+  osc2.connect(filter);
+  filter.connect(noteGain);
+  noteGain.connect(synthMasterGain);
+
+  osc1.start(now);
+  osc2.start(now);
+  osc1.stop(now + 0.28);
+  osc2.stop(now + 0.28);
+}
+
+function stopRhythmicSynth() {
+  if (dholakTimer) {
+    clearInterval(dholakTimer);
+    dholakTimer = null;
+  }
+  if (shehnaiTimer) {
+    clearInterval(shehnaiTimer);
+    shehnaiTimer = null;
+  }
+  if (audioContext && audioContext.state !== 'closed') {
+    try {
+      audioContext.close();
+    } catch (e) {}
+    audioContext = null;
+    synthMasterGain = null;
+  }
+}
+
+// ==========================================
+// Auspicious Flower Petals Shower Engine (पुष्प वर्षा)
+// ==========================================
+function initWeddingPetals() {
+  const canvas = document.getElementById('wedding-petals-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Dynamic touch & mouse interaction
+  let touchX = -9999;
+  let touchY = -9999;
+
+  window.addEventListener('pointermove', (e) => {
+    touchX = e.clientX;
+    touchY = e.clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    touchX = -9999;
+    touchY = -9999;
+  }, { passive: true });
+
+  const petalColors = [
+    { fill: '#88243C', stroke: '#6E1A2D' }, // Velvet Rose
+    { fill: '#C0392B', stroke: '#96281B' }, // Crimson Rose
+    { fill: '#E67E22', stroke: '#D35400' }, // Saffron Marigold
+    { fill: '#F39C12', stroke: '#E67E22' }, // Golden Marigold
+    { fill: '#F1C40F', stroke: '#F39C12' }  // Bright Genda Petal
+  ];
+
+  const petalsCount = window.innerWidth < 640 ? 16 : 30;
+  const petals = [];
+
+  for (let i = 0; i < petalsCount; i++) {
+    petals.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: 9 + Math.random() * 9,
+      speedY: 0.6 + Math.random() * 1.1,
+      speedX: -0.4 + Math.random() * 0.8,
+      angle: Math.random() * 360,
+      angularSpeed: (Math.random() - 0.5) * 1.5,
+      flutter: Math.random() * Math.PI,
+      flutterSpeed: 0.02 + Math.random() * 0.03,
+      color: petalColors[Math.floor(Math.random() * petalColors.length)]
     });
-
-    chimeInterval = setInterval(() => {
-      if (!audioContext || !masterGain) return;
-      playBell();
-    }, 4500);
-  } catch (e) {
-    console.warn(e);
   }
-}
 
-function playBell() {
-  try {
-    const pentatonic = [554.37, 622.25, 698.46, 830.61, 932.33];
-    const freq = pentatonic[Math.floor(Math.random() * pentatonic.length)];
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioContext.currentTime);
-    const now = audioContext.currentTime;
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.035, now + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
-    osc.connect(gain);
-    gain.connect(masterGain);
-    osc.start(now);
-    osc.stop(now + 3.1);
-  } catch (e) {}
-}
+  function renderPetals() {
+    if (!isPetalsActive) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function stopAudio() {
-  if (chimeInterval) clearInterval(chimeInterval);
-  if (masterGain && audioContext) {
-    masterGain.gain.linearRampToValueAtTime(0.001, audioContext.currentTime + 1);
-    setTimeout(() => {
-      oscillators.forEach(o => {
-        try { o.stop(); o.disconnect(); } catch (e) {}
-      });
-      oscillators = [];
-      if (audioContext) {
-        audioContext.close();
-        audioContext = null;
+    for (let i = 0; i < petals.length; i++) {
+      const p = petals[i];
+      p.y += p.speedY;
+      p.x += p.speedX + Math.sin(p.flutter) * 0.5;
+      p.angle += p.angularSpeed;
+      p.flutter += p.flutterSpeed;
+
+      // Dynamic touch / pointer gentle deflection
+      const dx = p.x - touchX;
+      const dy = p.y - touchY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100 && dist > 0) {
+        const force = (100 - dist) / 100;
+        p.x += (dx / dist) * force * 3.5;
+        p.y += (dy / dist) * force * 3.5;
       }
-    }, 1100);
+
+      if (p.y > canvas.height + 20) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+      if (p.x > canvas.width + 20) p.x = -20;
+      if (p.x < -20) p.x = canvas.width + 20;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.angle * Math.PI) / 180);
+      const scaleX = Math.cos(p.flutter);
+      ctx.scale(scaleX, 1);
+
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size);
+      ctx.bezierCurveTo(p.size * 0.8, -p.size * 0.8, p.size, p.size * 0.5, 0, p.size);
+      ctx.bezierCurveTo(-p.size, p.size * 0.5, -p.size * 0.8, -p.size * 0.8, 0, -p.size);
+      ctx.fillStyle = p.color.fill;
+      ctx.globalAlpha = 0.65;
+      ctx.fill();
+      ctx.strokeStyle = p.color.stroke;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    petalsAnimationId = requestAnimationFrame(renderPetals);
   }
+
+  renderPetals();
 }
 
-function updateAudioIcon(playing) {
-  const icon = document.getElementById('audio-icon');
-  if (icon) {
-    icon.setAttribute('data-lucide', playing ? 'volume-2' : 'volume-x');
-    if (window.lucide) window.lucide.createIcons();
+function togglePetals() {
+  isPetalsActive = !isPetalsActive;
+  const statusEl = document.getElementById('petals-status-text');
+  const btn = document.getElementById('btn-toggle-petals');
+
+  if (statusEl) {
+    statusEl.textContent = isPetalsActive ? 'Petals ON' : 'Petals OFF';
+  }
+  if (btn) {
+    if (isPetalsActive) {
+      btn.classList.add('bg-[#FCEEE9]', 'text-[#88243C]');
+    } else {
+      btn.classList.remove('bg-[#FCEEE9]', 'text-[#88243C]');
+    }
+  }
+
+  if (isPetalsActive) {
+    initWeddingPetals();
+    showToast('Auspicious flower petals shower enabled 🌸');
+  } else {
+    if (petalsAnimationId) cancelAnimationFrame(petalsAnimationId);
+    const canvas = document.getElementById('wedding-petals-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    showToast('Flower shower paused');
   }
 }
 
 // Event Listeners on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   renderAll();
+  initWeddingAudio();
+  initWeddingPetals();
 
   // Photo Switcher
   const btnPortrait = document.getElementById('btn-photo-portrait');

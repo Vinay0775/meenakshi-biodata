@@ -1,15 +1,61 @@
-// Web Audio API generator for serene Indian classical Tanpura drone and soft bell ambiance
+// Royal Shaadi Wedding Music & Rhythmic Percussion Engine
 
-class AmbientAudioPlayer {
-  private ctx: AudioContext | null = null;
+export interface WeddingTrack {
+  id: string;
+  title: string;
+  subtitle: string;
+  src: string | null;
+  badge: string;
+}
+
+export const weddingTracks: WeddingTrack[] = [
+  {
+    id: 'din-shagna',
+    title: 'Din Shagna Da (विवाह धुन)',
+    subtitle: 'Traditional Rhythmic Wedding Theme',
+    src: 'audio/wedding-theme.mp3',
+    badge: 'Track 1/3 • Bridal Melody'
+  },
+  {
+    id: 'shehnai-mangal',
+    title: 'Shehnai & Dholak Mangal Dhun',
+    subtitle: 'Festive Dadra Taal Wedding Beat',
+    src: 'audio/shehnai-mangal-dhun.mp3',
+    badge: 'Track 2/3 • Shehnai Utsav'
+  },
+  {
+    id: 'rhythmic-theka',
+    title: 'Live Shaadi Dholak & Shehnai Groove',
+    subtitle: 'Traditional Keherwa Wedding Theka',
+    src: null,
+    badge: 'Track 3/3 • Live Synthesis'
+  }
+];
+
+class WeddingAudioPlayer {
+  private audioElement: HTMLAudioElement | null = null;
   private isPlaying = false;
-  private masterGain: GainNode | null = null;
-  private oscillators: OscillatorNode[] = [];
-  private intervalId: number | null = null;
+  private currentTrackIndex = 0;
+  private volume = 0.6;
+  private ctx: AudioContext | null = null;
+  private synthGain: GainNode | null = null;
+  private dholakTimer: number | null = null;
+  private shehnaiTimer: number | null = null;
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      this.audioElement = new Audio();
+      this.audioElement.volume = this.volume;
+      this.audioElement.loop = true;
+      this.audioElement.addEventListener('ended', () => {
+        this.next();
+      });
+    }
+  }
 
   public toggle(): boolean {
     if (this.isPlaying) {
-      this.stop();
+      this.pause();
       return false;
     } else {
       this.play();
@@ -21,104 +67,169 @@ class AmbientAudioPlayer {
     return this.isPlaying;
   }
 
-  public play() {
+  public getCurrentTrack(): WeddingTrack {
+    return weddingTracks[this.currentTrackIndex];
+  }
+
+  public play(index?: number) {
+    if (index !== undefined) {
+      this.currentTrackIndex = (index + weddingTracks.length) % weddingTracks.length;
+    }
+    const track = weddingTracks[this.currentTrackIndex];
+    this.isPlaying = true;
+
+    if (track.src && this.audioElement) {
+      this.stopRhythmicSynth();
+      if (this.audioElement.src !== window.location.origin + '/' + track.src && !this.audioElement.src.endsWith(track.src)) {
+        this.audioElement.src = track.src;
+      }
+      this.audioElement.volume = this.volume;
+      this.audioElement.play().catch(() => {
+        this.startRhythmicSynth();
+      });
+    } else {
+      if (this.audioElement) this.audioElement.pause();
+      this.startRhythmicSynth();
+    }
+  }
+
+  public pause() {
+    this.isPlaying = false;
+    if (this.audioElement) this.audioElement.pause();
+    this.stopRhythmicSynth();
+  }
+
+  public next() {
+    this.currentTrackIndex = (this.currentTrackIndex + 1) % weddingTracks.length;
+    if (this.isPlaying) {
+      this.play();
+    }
+  }
+
+  public prev() {
+    this.currentTrackIndex = (this.currentTrackIndex - 1 + weddingTracks.length) % weddingTracks.length;
+    if (this.isPlaying) {
+      this.play();
+    }
+  }
+
+  public setVolume(val: number) {
+    this.volume = val;
+    if (this.audioElement) this.audioElement.volume = val;
+    if (this.synthGain && this.ctx && this.ctx.state !== 'closed') {
+      this.synthGain.gain.setValueAtTime(val * 0.22, this.ctx.currentTime);
+    }
+  }
+
+  private startRhythmicSynth() {
+    this.stopRhythmicSynth();
     try {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioCtx) return;
-
       this.ctx = new AudioCtx();
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume();
-      }
+      this.synthGain = this.ctx.createGain();
+      this.synthGain.gain.setValueAtTime(this.volume * 0.22, this.ctx.currentTime);
+      this.synthGain.connect(this.ctx.destination);
 
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(0.01, this.ctx.currentTime);
-      this.masterGain.gain.linearRampToValueAtTime(0.12, this.ctx.currentTime + 3);
-      this.masterGain.connect(this.ctx.destination);
+      let step = 0;
+      const tempoMs = 145; // ~104 BPM energetic festive Keherwa rhythm
 
-      // Tanpura frequencies: C# tuning (~138.59 Hz, Sa, Pa, Sa high)
-      const baseFreq = 138.59;
-      const notes = [baseFreq * 0.75, baseFreq, baseFreq * 1.5, baseFreq * 2];
+      this.dholakTimer = window.setInterval(() => {
+        if (!this.ctx || this.ctx.state === 'closed') return;
+        this.playDholakStep(step);
+        step = (step + 1) % 8;
+      }, tempoMs);
 
-      this.oscillators = notes.map((freq, idx) => {
-        const osc = this.ctx!.createOscillator();
-        const noteGain = this.ctx!.createGain();
+      let melodyStep = 0;
+      const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33];
 
-        // Warm harmonic drone
-        osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-        osc.frequency.setValueAtTime(freq + (Math.random() * 0.4 - 0.2), this.ctx!.currentTime);
+      this.shehnaiTimer = window.setInterval(() => {
+        if (!this.ctx || this.ctx.state === 'closed') return;
+        this.playShehnaiNote(notes[melodyStep % notes.length]);
+        melodyStep++;
+      }, tempoMs * 2);
 
-        noteGain.gain.setValueAtTime(0.2, this.ctx!.currentTime);
-        osc.connect(noteGain);
-        noteGain.connect(this.masterGain!);
-
-        osc.start();
-        return osc;
-      });
-
-      // Gentle intermittent chime notes reminiscent of temple bells
-      this.intervalId = window.setInterval(() => {
-        if (!this.ctx || !this.isPlaying) return;
-        this.playSoftChime();
-      }, 4500);
-
-      this.isPlaying = true;
     } catch (e) {
-      console.warn('Audio context could not start:', e);
-      this.isPlaying = false;
+      console.warn('Synth error:', e);
     }
   }
 
-  private playSoftChime() {
-    if (!this.ctx || !this.masterGain) return;
-    try {
-      const pentatonic = [554.37, 622.25, 698.46, 830.61, 932.33, 1108.73];
-      const freq = pentatonic[Math.floor(Math.random() * pentatonic.length)];
+  private playDholakStep(step: number) {
+    if (!this.ctx || !this.synthGain || this.ctx.state === 'closed') return;
+    const now = this.ctx.currentTime;
+    const isBass = (step === 0 || step === 1 || step === 4 || step === 5);
+    const isTreble = (step === 0 || step === 2 || step === 3 || step === 4 || step === 6 || step === 7);
 
+    if (isBass) {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-
-      const now = this.ctx.currentTime;
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.04, now + 0.1);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
-
+      osc.frequency.setValueAtTime((step === 0 || step === 4) ? 140 : 105, now);
+      osc.frequency.exponentialRampToValueAtTime((step === 0 || step === 4) ? 65 : 55, now + 0.12);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
       osc.connect(gain);
-      gain.connect(this.masterGain);
-
+      gain.connect(this.synthGain);
       osc.start(now);
-      osc.stop(now + 3.2);
-    } catch (e) {
-      // ignore
+      osc.stop(now + 0.19);
+    }
+
+    if (isTreble) {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime((step === 2 || step === 7) ? 480 : 560, now);
+      gain.gain.setValueAtTime(step === 7 ? 0.28 : 0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.connect(gain);
+      gain.connect(this.synthGain);
+      osc.start(now);
+      osc.stop(now + 0.09);
     }
   }
 
-  public stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
+  private playShehnaiNote(freq: number) {
+    if (!this.ctx || !this.synthGain || this.ctx.state === 'closed') return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const filter = this.ctx.createBiquadFilter();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(freq, now);
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1800, now);
+    filter.Q.setValueAtTime(2.5, now);
+
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.14, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.synthGain);
+
+    osc.start(now);
+    osc.stop(now + 0.28);
+  }
+
+  private stopRhythmicSynth() {
+    if (this.dholakTimer) {
+      clearInterval(this.dholakTimer);
+      this.dholakTimer = null;
     }
-    if (this.masterGain && this.ctx) {
-      this.masterGain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 1.2);
-      setTimeout(() => {
-        this.oscillators.forEach((osc) => {
-          try {
-            osc.stop();
-            osc.disconnect();
-          } catch (e) {}
-        });
-        this.oscillators = [];
-        if (this.ctx) {
-          this.ctx.close();
-          this.ctx = null;
-        }
-      }, 1300);
+    if (this.shehnaiTimer) {
+      clearInterval(this.shehnaiTimer);
+      this.shehnaiTimer = null;
     }
-    this.isPlaying = false;
+    if (this.ctx && this.ctx.state !== 'closed') {
+      try {
+        this.ctx.close();
+      } catch (e) {}
+      this.ctx = null;
+      this.synthGain = null;
+    }
   }
 }
 
-export const ambientAudio = new AmbientAudioPlayer();
+export const ambientAudio = new WeddingAudioPlayer();
