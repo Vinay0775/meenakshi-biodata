@@ -1,24 +1,1181 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meenakshi Kumawat — Marriage Biodata & Matrimonial Profile</title>
-    <meta name="description" content="Marriage biodata profile of Meenakshi Kumawat (M.Com, UGC NET Qualified). Personal, educational, family background and gotra details." />
-    <meta name="theme-color" content="#84223E" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meenakshi Kumawat — Marriage Biodata & Matrimonial Profile</title>
+  <meta name="description" content="Marriage biodata profile of Meenakshi Kumawat (M.Com, UGC NET Qualified). Personal, educational, family background and gotra details.">
+  <meta name="theme-color" content="#84223E">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Marcellus&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Marcellus&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>" />
-  </head>
-  <body class="bg-[#FAF6F0] text-[#332225] antialiased selection:bg-[#B33951] selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- html2pdf.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>">
+</head>
+
+<body class="bg-[#FAF6F0] text-[#2D2224] antialiased selection:bg-[#88243C] selection:text-white">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#FDFBF7] text-[#6E1A2D] px-4 py-3 rounded-2xl border border-[#C5A059] shadow-2xl flex items-center gap-3 hidden no-print transition-all">
+    <span class="text-[#C5A059]">✦</span>
+    <span id="toast-message" class="text-xs font-semibold">Action completed</span>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#C5A059]/30 py-3 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-full border border-[#C5A059] flex items-center justify-center bg-[#FDFBF7] shadow-xs text-[#88243C]">
+          🪷
+        </div>
+        <div>
+          <span class="font-serif font-bold text-lg tracking-wider text-[#6E1A2D]">MEENAKSHI</span>
+          <span class="text-[10px] tracking-widest uppercase block text-[#C5A059] font-medium">Matrimonial Profile</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-[#4A3B3E]">
+        <a href="#hero" class="hover:text-[#88243C] transition-colors">Overview</a>
+        <a href="#personal" class="hover:text-[#88243C] transition-colors">Personal Details</a>
+        <a href="#education" class="hover:text-[#88243C] transition-colors">Education & Career</a>
+        <a href="#family" class="hover:text-[#88243C] transition-colors">Family Background</a>
+        <a href="#gotra" class="hover:text-[#88243C] transition-colors">Gotra Heritage</a>
+        <a href="#contact" class="hover:text-[#88243C] transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <!-- Audio Button -->
+        <button onclick="toggleAudio()" title="Traditional Ambiance Music" class="p-2 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
+          <i id="audio-icon" data-lucide="volume-x" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Share Button -->
+        <button onclick="shareProfile()" title="Share Profile" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span>Share</span>
+        </button>
+
+        <!-- Print Button -->
+        <button onclick="window.print()" title="Print Profile" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>Print</span>
+        </button>
+
+        <!-- Edit Profile Button -->
+        <button onclick="openEditor()" title="Edit Profile Details" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#C5A059] bg-[#FDFBF7] text-xs font-medium text-[#88243C] hover:bg-[#88243C] hover:text-white transition-all shadow-xs">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Edit Details</span>
+        </button>
+
+        <!-- PDF Biodata Button -->
+        <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#88243C] to-[#6E1A2D] text-white text-xs font-semibold shadow-md hover:brightness-110 transition-all border border-[#DFBE76]/40 cursor-pointer">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-[#F3E5AB]"></i>
+          <span>PDF Biodata</span>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-[#6E1A2D] hover:bg-[#FCEEE9] rounded-lg">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#FDFBF7] border-b border-[#C5A059]/30 px-6 py-4 shadow-xl">
+      <nav class="flex flex-col space-y-2.5 text-sm font-medium text-[#4A3B3E]">
+        <a href="#hero" class="py-1.5 border-b border-[#C5A059]/15">Overview</a>
+        <a href="#personal" class="py-1.5 border-b border-[#C5A059]/15">Personal Details</a>
+        <a href="#education" class="py-1.5 border-b border-[#C5A059]/15">Education & Career</a>
+        <a href="#family" class="py-1.5 border-b border-[#C5A059]/15">Family Background</a>
+        <a href="#gotra" class="py-1.5 border-b border-[#C5A059]/15">Gotra Heritage</a>
+        <a href="#contact" class="py-1.5">Contact Information</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-4 pb-12 overflow-hidden bg-mandala-pattern">
+      
+      <!-- Auspicious Vedic Invocation -->
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-[#FDFBF7] border border-[#C5A059]/40 shadow-xs">
+          <span class="text-xs text-[#C5A059]">✦</span>
+          <span class="font-devanagari text-base text-[#88243C] font-semibold tracking-wide">|| श्री गणेशाय नमः ||</span>
+          <span class="text-xs text-[#C5A059]">✦</span>
+        </div>
+        <p class="text-[11px] sm:text-xs tracking-widest uppercase text-[#99742B] font-medium mt-1">
+          Auspicious Matrimonial Biodata Invitation
+        </p>
+      </div>
+
+      <!-- Main Hero Card -->
+      <div class="bg-[#FDFBF7]/90 rounded-3xl border border-[#C5A059]/40 shadow-xl overflow-hidden p-6 sm:p-10 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Column: Portrait Photograph with Royal Rajasthani Jharokha Frame -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="relative group w-full max-w-[340px]">
+              
+              <!-- Frame -->
+              <div class="p-2 sm:p-2.5 rounded-t-[170px] rounded-b-2xl bg-gradient-to-b from-[#DFBE76] via-[#C5A059] to-[#88243C]/40 shadow-2xl relative">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#C5A059] shadow-xs flex items-center gap-1.5 text-[#88243C]">
+                  <span class="text-xs text-[#C5A059]">✦</span>
+                  <span class="text-[10px] uppercase font-bold tracking-widest text-[#6E1A2D]">Profile Portrait</span>
+                  <span class="text-xs text-[#C5A059]">✦</span>
+                </div>
+
+                <div class="relative overflow-hidden rounded-t-[160px] rounded-b-xl bg-[#2D161C] aspect-[3/4] max-h-[460px]">
+                  <img id="hero-profile-img" src="images/meenakshi-portrait.jpg" alt="Meenakshi Kumawat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" style="object-position: center 15%;">
+                  
+                  <!-- Gradient overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-[#2D161C]/80 via-transparent to-transparent opacity-60"></div>
+
+                  <!-- Hover Fullview Button -->
+                  <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button onclick="openLightbox()" class="px-3.5 py-2 rounded-full bg-white/95 text-[#6E1A2D] text-xs font-semibold shadow-lg hover:bg-white flex items-center gap-1.5 cursor-pointer">
+                      <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                      <span>View Full Photo</span>
+                    </button>
+                  </div>
+
+                  <div class="absolute bottom-3 left-0 right-0 text-center px-4">
+                    <span class="profile-fullname text-xs font-serif text-[#F8F3E6] drop-shadow-md tracking-wider">Meenakshi Kumawat</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Photo Switcher & Change Photo -->
+              <div class="mt-4 flex items-center justify-between gap-2 w-full px-1">
+                <div class="flex items-center gap-1.5 bg-[#FAF6F0] p-1 rounded-full border border-[#C5A059]/40">
+                  <button id="btn-photo-portrait" class="px-3 py-1 rounded-full text-xs font-medium bg-[#88243C] text-white shadow-xs transition-all">Portrait</button>
+                  <button id="btn-photo-traditional" class="px-3 py-1 rounded-full text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all">Traditional</button>
+                </div>
+
+                <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium text-[#6E1A2D] bg-[#FCEEE9] hover:bg-[#F7D6D0] border border-[#C5A059]/40 transition-colors">
+                  <i data-lucide="upload" class="w-3 h-3 text-[#88243C]"></i>
+                  <span>Change</span>
+                  <input id="photo-upload-input" type="file" accept="image/*" class="hidden">
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: Profile Title, Details & Badges -->
+          <div class="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+            <div class="flex items-center justify-center lg:justify-start gap-2 mb-2">
+              <span class="h-0.5 w-6 bg-[#C5A059]"></span>
+              <span class="font-royal text-xs uppercase tracking-[0.2em] text-[#99742B] font-semibold">Marriage Biodata</span>
+              <span class="h-0.5 w-6 bg-[#C5A059]"></span>
+            </div>
+
+            <h1 class="profile-fullname text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#6E1A2D] tracking-wide my-1 leading-tight">
+              Meenakshi Kumawat
+            </h1>
+
+            <p class="text-xs sm:text-sm font-classic italic text-[#805C1B] font-medium mb-3">
+              "A beautiful journey begins with a meaningful connection."
+            </p>
+
+            <div class="flex items-center justify-center lg:justify-start my-1 text-[#C5A059]">
+              <span class="text-xs">✦</span>
+              <div class="h-[1px] w-16 bg-[#C5A059]/40 mx-2"></div>
+              <span class="text-sm">🪷</span>
+              <div class="h-[1px] w-16 bg-[#C5A059]/40 mx-2"></div>
+              <span class="text-xs">✦</span>
+            </div>
+
+            <!-- Spotlight Card -->
+            <div class="mt-3 mb-5 p-3.5 rounded-2xl bg-gradient-to-r from-[#FCEEE9] via-[#FAF6F0] to-[#FDFBF7] border border-[#C5A059]/40 shadow-xs text-left">
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl bg-[#88243C] text-[#F3E5AB] flex items-center justify-center shrink-0 shadow-xs">
+                  <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="inline-block px-2 py-0.5 rounded-md bg-[#88243C] text-white text-[11px] font-semibold tracking-wide">
+                      UGC NET QUALIFIED
+                    </span>
+                    <span class="text-xs font-semibold text-[#6E1A2D]">
+                      Post Graduation (M.Com)
+                    </span>
+                  </div>
+                  <p class="text-xs text-[#523F42] mt-1 leading-relaxed">
+                    Aspiring Assistant Professor in Commerce & Higher Education. Qualified with distinguished academic credentials.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Badges Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-6 text-left">
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-sm flex items-center justify-center shrink-0">🕉️</div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">Community</span>
+                  <span class="profile-community text-xs font-semibold text-[#2D2224]">Hindu • Kumawat</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-[#88243C] flex items-center justify-center shrink-0">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">DOB & Age</span>
+                  <span class="profile-dob-age text-xs font-semibold text-[#2D2224]">10 August 2000 (25 Yrs)</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-[#88243C] flex items-center justify-center shrink-0">
+                  <i data-lucide="ruler" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">Height</span>
+                  <span class="profile-height text-xs font-semibold text-[#2D2224]">5 ft 3 in</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-[#88243C] flex items-center justify-center shrink-0">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">Complexion</span>
+                  <span class="profile-complexion text-xs font-semibold text-[#2D2224]">Fair</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-sm flex items-center justify-center shrink-0">👑</div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">Self Gotra</span>
+                  <span class="profile-gotra-self text-xs font-semibold text-[#2D2224]">Sirohiya</span>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30 flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-[#DFBE76]/20 text-[#88243C] flex items-center justify-center shrink-0">
+                  <i data-lucide="map-pin" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase text-[#735E62] block font-medium">Location</span>
+                  <span class="profile-location text-xs font-semibold text-[#2D2224]">Jaipur, Rajasthan</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <a href="#personal" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#88243C] text-white text-xs sm:text-sm font-semibold hover:bg-[#6E1A2D] shadow-md transition-all">
+                <span>View Full Details</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+
+              <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#FAF6F0] text-[#6E1A2D] text-xs sm:text-sm font-semibold border border-[#C5A059] hover:bg-[#FCEEE9] transition-all cursor-pointer">
+                <i data-lucide="download" class="w-4 h-4 text-[#C5A059]"></i>
+                <span>Download Biodata (PDF)</span>
+              </button>
+
+              <a href="#contact" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#FAF6F0] text-[#6E1A2D] text-xs sm:text-sm font-semibold border border-[#C5A059]/40 hover:bg-[#FCEEE9] transition-all">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-[#88243C]"></i>
+                <span>Contact Parents</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Personal Details Section -->
+    <section id="personal" class="py-12">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B]">
+          <span>✦</span><span>Attributes & Background</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-1">Personal Details</h2>
+        <div class="flex items-center justify-center my-4 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span>🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          Comprehensive personal and astrological details as extracted from the authentic marriage biodata.
+        </p>
+      </div>
+
+      <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 shadow-lg p-6 sm:p-10 relative overflow-hidden royal-card-shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 relative z-10">
+          
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-gradient-to-r from-[#FCEEE9] to-[#FAF6F0] border-[#C5A059]/50 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="user" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Full Name</span>
+                <span id="pd-name" class="text-sm sm:text-base font-semibold text-[#2D2224]">Meenakshi Kumawat</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <span>🕉️</span>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Religion</span>
+                <span id="pd-religion" class="text-sm sm:text-base font-semibold text-[#2D2224]">Hindu</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Caste / Community</span>
+                <span id="pd-caste" class="text-sm sm:text-base font-semibold text-[#2D2224]">Kumawat</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="calendar" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Date of Birth</span>
+                <span id="pd-dob" class="text-sm sm:text-base font-semibold text-[#2D2224]">10 August 2000 (10-08-2000)</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-gradient-to-r from-[#FCEEE9] to-[#FAF6F0] border-[#C5A059]/50 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <span class="text-xs text-[#C5A059]">✦</span>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Age</span>
+                <span id="pd-age" class="text-sm sm:text-base font-semibold text-[#2D2224]">25 Years</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="ruler" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Height</span>
+                <span id="pd-height" class="text-sm sm:text-base font-semibold text-[#2D2224]">5 ft 3 in (160 cm)</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Complexion</span>
+                <span id="pd-complexion" class="text-sm sm:text-base font-semibold text-[#2D2224]">Fair</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="heart" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Marital Status</span>
+                <span id="pd-marital" class="text-sm sm:text-base font-semibold text-[#2D2224]">Never Married</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="languages" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Mother Tongue</span>
+                <span id="pd-tongue" class="text-sm sm:text-base font-semibold text-[#2D2224]">Hindi / Rajasthani</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="utensils" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Dietary Habits</span>
+                <span id="pd-diet" class="text-sm sm:text-base font-semibold text-[#2D2224]">Vegetarian</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+          <div class="p-3.5 sm:p-4 rounded-2xl border bg-[#FAF6F0]/80 border-[#C5A059]/25 flex items-center justify-between sm:col-span-2">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#FDFBF7] border border-[#C5A059]/30 flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#88243C]"></i>
+              </div>
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-[#7A676A] font-medium block">Current Residence</span>
+                <span id="pd-location" class="text-sm sm:text-base font-semibold text-[#2D2224]">Jaipur, Rajasthan</span>
+              </div>
+            </div>
+            <span class="text-[#C5A059]/40 text-xs">✦</span>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-[#C5A059]/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <span class="text-xs uppercase tracking-wider font-semibold text-[#6E1A2D]">Interests & Lifestyle:</span>
+          <div class="flex flex-wrap gap-2 justify-center">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FAF6F0] text-[#6E1A2D] border border-[#C5A059]/30">Traditional Arts</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FAF6F0] text-[#6E1A2D] border border-[#C5A059]/30">Reading</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FAF6F0] text-[#6E1A2D] border border-[#C5A059]/30">Music</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FAF6F0] text-[#6E1A2D] border border-[#C5A059]/30">Teaching</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Career Section -->
+    <section id="education" class="py-12">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B]">
+          <span>✦</span><span>Academic & Professional Credentials</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-1">Education & Career</h2>
+        <div class="flex items-center justify-center my-4 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span>🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          Distinguished academic qualifications and committed professional trajectory in collegiate education and commerce.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Education Card -->
+        <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 p-6 sm:p-8 shadow-lg royal-card-shadow royal-hover-lift">
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-[#C5A059]/20">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#88243C] text-[#F3E5AB] flex items-center justify-center shadow-md">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block">Higher Education</span>
+                <h3 class="text-lg font-serif font-bold text-[#6E1A2D]">Post Graduation</h3>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FCEEE9] text-[#88243C] border border-[#C5A059]/30">M.Com</span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/20">
+              <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium">Degree Obtained</span>
+              <p id="edu-title" class="text-base font-bold text-[#2D2224] mt-0.5">Post Graduation – M.Com</p>
+              <p id="edu-details" class="text-xs text-[#523F42] mt-1">Master of Commerce (M.Com)</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/20">
+              <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium">Academic Specialization</span>
+              <p id="edu-spec" class="text-sm font-semibold text-[#2D2224] mt-0.5">Commerce, Accounting & Business Studies</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/20">
+              <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium">Additional Academic Merit</span>
+              <p class="text-xs font-medium text-[#4A3B3E] mt-0.5">RS-CIT, Advanced Academic Excellence in Commerce</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Career Card -->
+        <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 p-6 sm:p-8 shadow-lg royal-card-shadow royal-hover-lift">
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-[#C5A059]/20">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#DFBE76] to-[#C5A059] text-[#4A0E1C] flex items-center justify-center shadow-md">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block">Professional Qualification</span>
+                <h3 class="text-lg font-serif font-bold text-[#6E1A2D]">Career & Accomplishments</h3>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#88243C] text-white shadow-xs">UGC NET</span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-3.5 rounded-xl bg-gradient-to-r from-[#FCEEE9] to-[#FAF6F0] border border-[#C5A059]/40">
+              <span class="text-[11px] uppercase tracking-wider text-[#88243C] block font-semibold">National Eligibility Test (NET) Qualified</span>
+              <p id="occ-title" class="text-base font-bold text-[#2D2224] mt-0.5">NET Qualified – Aspiring Assistant Professor (Commerce)</p>
+              <p id="occ-details" class="text-xs text-[#523F42] mt-1 leading-relaxed">Qualified UGC NET Examination; pursuing career as Assistant Professor in Higher Education & College Cadre</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/20">
+              <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium">Professional Vision</span>
+              <p id="occ-goal" class="text-xs text-[#4A3B3E] mt-0.5 leading-relaxed">Dedicated to education, academic research, and pedagogical excellence in Commerce</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/20">
+              <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium">Career Sector</span>
+              <p class="text-sm font-semibold text-[#2D2224] mt-0.5">Collegiate Education & University Commerce Faculty</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Family Background Section -->
+    <section id="family" class="py-12">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B]">
+          <span>✦</span><span>Ancestry & Kinship</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-1">Family Background</h2>
+        <div class="flex items-center justify-center my-4 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span>🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          A respected and close-knit family rooted in rich artistic heritage, moral values, and traditional Rajasthani culture.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        
+        <!-- Grandparents -->
+        <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 p-6 sm:p-8 shadow-lg royal-card-shadow">
+          <div class="flex items-center gap-2 mb-4 text-[#88243C]">
+            <i data-lucide="crown" class="w-4 h-4 text-[#C5A059]"></i>
+            <h3 class="text-sm uppercase tracking-widest font-bold text-[#99742B]">Grandparents (Paternal)</h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#C5A059]/25 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-[#DFBE76]/20 text-base flex items-center justify-center shrink-0">👴</div>
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Grandfather</span>
+                <span id="fam-gf" class="text-base font-serif font-bold text-[#2D2224]">Late Shri Nanda Ram Kumawat</span>
+                <span class="text-xs text-[#7A676A] block mt-0.5">Kumawat Family Patriarch</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#C5A059]/25 flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-[#DFBE76]/20 text-base flex items-center justify-center shrink-0">👵</div>
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Grandmother</span>
+                <span id="fam-gm" class="text-base font-serif font-bold text-[#2D2224]">Smt. Manfuli Devi</span>
+                <span class="text-xs text-[#7A676A] block mt-0.5">Matriarch of the Family</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Parents -->
+        <div class="bg-gradient-to-r from-[#FCEEE9] via-[#FAF6F0] to-[#FDFBF7] rounded-3xl border border-[#C5A059]/50 p-6 sm:p-8 shadow-lg royal-card-shadow">
+          <div class="flex items-center gap-2 mb-4 text-[#88243C]">
+            <i data-lucide="heart-handshake" class="w-4 h-4 text-[#88243C]"></i>
+            <h3 class="text-sm uppercase tracking-widest font-bold text-[#88243C]">Parents</h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Father -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-[#C5A059]/30 shadow-xs flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-[#88243C] text-[#F3E5AB] flex items-center justify-center shrink-0 shadow-xs">
+                <i data-lucide="palette" class="w-5 h-5"></i>
+              </div>
+              <div class="flex-1">
+                <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Father</span>
+                <span id="fam-father" class="text-base font-serif font-bold text-[#6E1A2D] block">Shri Omprakash Kumawat</span>
+                <div class="mt-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FAF6F0] text-xs font-semibold text-[#88243C] border border-[#C5A059]/30">
+                  <i data-lucide="palette" class="w-3 h-3 text-[#C5A059]"></i>
+                  <span id="fam-father-occ">Artist (Miniature Traditional Art)</span>
+                </div>
+                <p class="text-xs text-[#523F42] mt-1.5 leading-relaxed">
+                  Celebrated Artist specializing in traditional Rajasthani miniature painting techniques.
+                </p>
+              </div>
+            </div>
+
+            <!-- Mother -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-[#C5A059]/30 shadow-xs flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-2xl bg-[#DFBE76] text-[#4A0E1C] flex items-center justify-center shrink-0 shadow-xs">
+                <i data-lucide="home" class="w-5 h-5"></i>
+              </div>
+              <div class="flex-1">
+                <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Mother</span>
+                <span id="fam-mother" class="text-base font-serif font-bold text-[#6E1A2D] block">Smt. Mansha Devi</span>
+                <div class="mt-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FAF6F0] text-xs font-semibold text-[#88243C] border border-[#C5A059]/30">
+                  <i data-lucide="home" class="w-3 h-3 text-[#C5A059]"></i>
+                  <span id="fam-mother-occ">Homemaker</span>
+                </div>
+                <p class="text-xs text-[#523F42] mt-1.5 leading-relaxed">
+                  The devoted soul of the household, upholding family culture, harmony, and traditions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Siblings & Uncles -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Siblings -->
+          <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 p-6 sm:p-7 shadow-lg royal-card-shadow">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#C5A059]/20">
+              <div class="flex items-center gap-2">
+                <i data-lucide="users" class="w-4 h-4 text-[#88243C]"></i>
+                <h3 class="text-sm uppercase tracking-widest font-bold text-[#99742B]">Siblings (4 Siblings)</h3>
+              </div>
+              <span class="text-xs text-[#7A676A] font-medium">Brothers & Sisters</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="p-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/25 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Brother</span>
+                  <span id="fam-brothers" class="text-sm font-semibold text-[#2D2224]">Vikram Kumawat</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-[#FCEEE9] text-[11px] font-medium text-[#88243C]">Brother</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/25 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-[#7A676A] font-medium block">Sisters</span>
+                  <span id="fam-sisters" class="text-sm font-semibold text-[#2D2224]">Kanta Kumawat, Priyanka Kumawat</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-[#FCEEE9] text-[11px] font-medium text-[#88243C]">2 Sisters</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uncles -->
+          <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/40 p-6 sm:p-7 shadow-lg royal-card-shadow">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#C5A059]/20">
+              <div class="flex items-center gap-2">
+                <i data-lucide="git-branch" class="w-4 h-4 text-[#88243C]"></i>
+                <h3 class="text-sm uppercase tracking-widest font-bold text-[#99742B]">Paternal Uncles (चाचा / ताऊजी)</h3>
+              </div>
+              <span class="text-xs text-[#7A676A] font-medium">Extended Family</span>
+            </div>
+
+            <div id="fam-uncles" class="space-y-2.5">
+              <!-- populated by JS -->
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#C5A059]/15 flex items-center justify-between text-xs text-[#7A676A]">
+              <span>Native Heritage:</span>
+              <span class="font-semibold text-[#6E1A2D]">Rajasthan, India</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Gotra Details Section -->
+    <section id="gotra" class="py-12">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B]">
+          <span>✦</span><span>Sacred Ancestral Lineage</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-1">Family Heritage & Gotra</h2>
+        <div class="flex items-center justify-center my-4 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span>🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          As per traditional Rajasthani and Vedic customs, the four primary gotras are honored for ancestral harmony and matrimonial alliance.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Self Gotra -->
+        <div class="rounded-3xl border p-5 sm:p-6 text-center royal-hover-lift flex flex-col justify-between bg-gradient-to-b from-[#FCEEE9] via-[#FAF6F0] to-[#FDFBF7] border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30">
+          <div>
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#DFBE76] to-[#C5A059] text-[#4A0E1C] mx-auto shadow-xs mb-3">
+              <i data-lucide="shield" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block mb-1">Paternal Primary</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#523F42]">Self Gotra (Pita / Father)</h3>
+            <div class="my-3 py-2 px-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30">
+              <span id="gotra-self" class="text-xl sm:text-2xl font-serif font-bold text-[#6E1A2D] block tracking-wide">Sirohiya</span>
+              <span class="text-[11px] text-[#7A676A] font-medium block mt-0.5">स्वयं / पिता का गोत्र</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#735E62] leading-relaxed mt-2">Paternal lineage inherited through father Shri Omprakash Kumawat</p>
+        </div>
+
+        <!-- Mama Gotra -->
+        <div class="rounded-3xl border p-5 sm:p-6 text-center royal-hover-lift flex flex-col justify-between bg-[#FDFBF7] border-[#C5A059]/40 shadow-sm">
+          <div>
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#DFBE76] to-[#C5A059] text-[#4A0E1C] mx-auto shadow-xs mb-3">
+              <i data-lucide="shield" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block mb-1">Maternal Lineage</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#523F42]">Mama's Gotra (Maternal Uncle)</h3>
+            <div class="my-3 py-2 px-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30">
+              <span id="gotra-mama" class="text-xl sm:text-2xl font-serif font-bold text-[#6E1A2D] block tracking-wide">Anavadiya</span>
+              <span class="text-[11px] text-[#7A676A] font-medium block mt-0.5">मामा / ननिहाल का गोत्र</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#735E62] leading-relaxed mt-2">Maternal uncle lineage through mother Smt. Mansha Devi</p>
+        </div>
+
+        <!-- Dadi Gotra -->
+        <div class="rounded-3xl border p-5 sm:p-6 text-center royal-hover-lift flex flex-col justify-between bg-[#FDFBF7] border-[#C5A059]/40 shadow-sm">
+          <div>
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#DFBE76] to-[#C5A059] text-[#4A0E1C] mx-auto shadow-xs mb-3">
+              <i data-lucide="shield" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block mb-1">Grandmother Paternal</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#523F42]">Dadi's Gotra (Grandmother)</h3>
+            <div class="my-3 py-2 px-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30">
+              <span id="gotra-dadi" class="text-xl sm:text-2xl font-serif font-bold text-[#6E1A2D] block tracking-wide">Renewal</span>
+              <span class="text-[11px] text-[#7A676A] font-medium block mt-0.5">दादी का गोत्र</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#735E62] leading-relaxed mt-2">Paternal grandmother lineage through Smt. Manfuli Devi</p>
+        </div>
+
+        <!-- Nani Gotra -->
+        <div class="rounded-3xl border p-5 sm:p-6 text-center royal-hover-lift flex flex-col justify-between bg-[#FDFBF7] border-[#C5A059]/40 shadow-sm">
+          <div>
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[#DFBE76] to-[#C5A059] text-[#4A0E1C] mx-auto shadow-xs mb-3">
+              <i data-lucide="shield" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-[#99742B] block mb-1">Grandmother Maternal</span>
+            <h3 class="text-xs sm:text-sm font-semibold text-[#523F42]">Nani's Gotra (Grandmother)</h3>
+            <div class="my-3 py-2 px-3 rounded-xl bg-[#FAF6F0] border border-[#C5A059]/30">
+              <span id="gotra-nani" class="text-xl sm:text-2xl font-serif font-bold text-[#6E1A2D] block tracking-wide">Balodiya</span>
+              <span class="text-[11px] text-[#7A676A] font-medium block mt-0.5">नानी का गोत्र</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#735E62] leading-relaxed mt-2">Maternal grandmother lineage through maternal family heritage</p>
+        </div>
+
+      </div>
+
+      <div class="mt-8 p-4 rounded-2xl bg-[#FAF6F0] border border-[#C5A059]/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#523F42]">
+        <div class="flex items-center gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-[#88243C] shrink-0"></i>
+          <span><strong>Note on Gotras:</strong> Kumawat community observes 4-gotra parihar. All gotra spellings may be verified or modified directly anytime.</span>
+        </div>
+        <button onclick="openEditor()" class="shrink-0 px-3.5 py-1.5 rounded-full bg-[#FDFBF7] text-[#88243C] border border-[#C5A059] hover:bg-[#88243C] hover:text-white font-medium text-xs transition-colors">
+          Verify / Edit Gotras
+        </button>
+      </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section id="contact" class="py-12 max-w-4xl mx-auto">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B]">
+          <span>✦</span><span>Respectful Inquiries</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-1">Contact Information</h2>
+        <div class="flex items-center justify-center my-4 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span>🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          Genuine matrimonial inquiries from families are warmly welcomed. Contact numbers are masked for privacy.
+        </p>
+      </div>
+
+      <div class="bg-[#FDFBF7] rounded-3xl border border-[#C5A059]/50 p-6 sm:p-10 shadow-xl royal-card-shadow relative overflow-hidden text-center">
+        
+        <div class="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF6F0] border border-[#C5A059]/30 text-[11px] font-medium text-[#7A676A]">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#88243C]"></i>
+          <span>Privacy Protected</span>
+        </div>
+
+        <div class="max-w-xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FCEEE9] text-[#88243C] text-xs font-semibold mb-4">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span id="contact-person">Point of Contact: Parents</span>
+          </div>
+
+          <h3 class="text-lg sm:text-xl font-serif font-bold text-[#2D2224] mb-1">Kumawat Family (Parents)</h3>
+          <p class="text-xs text-[#7A676A] flex items-center justify-center gap-1 mb-6">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#88243C]"></i>
+            <span id="contact-city">Jaipur, Rajasthan, India</span>
+          </p>
+
+          <!-- Number Box -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-[#FAF6F0] to-[#FDFBF7] border border-[#C5A059]/40 shadow-inner mb-6">
+            <span class="text-[11px] uppercase tracking-wider text-[#7A676A] block font-medium mb-1">Parents Contact Number</span>
+
+            <div id="contact-phone-display" class="text-2xl sm:text-3xl font-mono font-bold tracking-wider text-[#6E1A2D] my-2 select-all">
+              +91 82093 •••••
+            </div>
+
+            <!-- Reveal Button -->
+            <button id="reveal-phone-btn" class="mt-3 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#88243C] to-[#6E1A2D] text-white text-xs sm:text-sm font-semibold shadow-md hover:brightness-110 transition-all border border-[#DFBE76]/40 cursor-pointer">
+              <i data-lucide="eye" class="w-4 h-4 text-[#F3E5AB]"></i>
+              <span>Reveal Contact Number</span>
+            </button>
+
+            <!-- Revealed Action Buttons -->
+            <div id="phone-action-buttons" class="mt-4 flex flex-wrap items-center justify-center gap-2.5 hidden">
+              <a id="btn-call-now" href="tel:+918209399076" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#88243C] text-white text-xs font-semibold hover:bg-[#6E1A2D] shadow-xs">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                <span>Call Now</span>
+              </a>
+
+              <a id="btn-whatsapp" href="#" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] text-white text-xs font-semibold hover:bg-[#20ba59] shadow-xs">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                <span>WhatsApp Message</span>
+              </a>
+
+              <button id="btn-copy-phone" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAF6F0] text-[#6E1A2D] text-xs font-semibold border border-[#C5A059]/40 hover:bg-[#FCEEE9]">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy Number</span>
+              </button>
+
+              <button id="btn-hide-phone" class="inline-flex items-center gap-1 px-3 py-2 rounded-full text-xs text-[#7A676A] hover:text-[#2D2224]">
+                <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+                <span>Hide</span>
+              </button>
+            </div>
+
+          </div>
+
+          <div class="flex items-center justify-center gap-2 text-[11px] text-[#7A676A] bg-[#FAF6F0] p-3 rounded-xl border border-[#C5A059]/20">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-[#C5A059] shrink-0"></i>
+            <span>Please reach out during reasonable daylight hours (9:00 AM – 8:00 PM IST) for matrimonial discussions.</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#FAF6F0] border-t border-[#C5A059]/30 pt-12 pb-16 px-4 text-center no-print">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="p-6 rounded-3xl bg-[#FDFBF7] border border-[#C5A059]/40 shadow-xs max-w-2xl mx-auto mb-8">
+        <div class="w-8 h-8 rounded-full border border-[#C5A059] flex items-center justify-center mx-auto mb-3 bg-[#FAF6F0] text-sm text-[#88243C]">
+          🪷
+        </div>
+        <p class="font-devanagari text-base sm:text-lg text-[#88243C] font-semibold tracking-wide leading-relaxed">
+          माङ्गल्यं तन्तुनानेन लोकभव्येन धार्यते ।<br>
+          कण्ठे बध्नामि सुभगे सञ्जीव शरदः शतम् ॥
+        </p>
+        <p class="text-xs text-[#99742B] font-classic italic mt-2">
+          "May the sacred union bring lifelong companionship, happiness, and prosperity."
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAF6F0] text-xs font-semibold text-[#6E1A2D] border border-[#C5A059]/40 hover:bg-[#FCEEE9] cursor-pointer">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <span>Download Biodata PDF</span>
+        </button>
+
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAF6F0] text-xs font-semibold text-[#6E1A2D] border border-[#C5A059]/40 hover:bg-[#FCEEE9] cursor-pointer">
+          <i data-lucide="printer" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <span>Print Profile</span>
+        </button>
+
+        <button onclick="shareProfile()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAF6F0] text-xs font-semibold text-[#6E1A2D] border border-[#C5A059]/40 hover:bg-[#FCEEE9] cursor-pointer">
+          <i data-lucide="share-2" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <span>Share Profile</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-[#7A676A] mt-4">With blessings of the elders • Kumawat Family, Rajasthan</p>
+      <p class="text-[11px] text-[#A69497] mt-1">Crafted with reverence as an elegant Digital Indian Marriage Biodata</p>
+
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden no-print">
+    <div class="absolute top-4 left-4 right-4 flex items-center justify-between text-white z-10">
+      <div class="flex items-center gap-2">
+        <span class="text-[#DFBE76]">✦</span>
+        <span class="font-serif text-sm sm:text-base text-[#FDFBF7]">Meenakshi Kumawat — Portrait</span>
+      </div>
+      <button onclick="closeLightbox()" class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="relative max-w-4xl max-h-[85vh] p-2 rounded-2xl bg-gradient-to-b from-[#DFBE76]/60 to-[#88243C]/60 shadow-2xl flex items-center justify-center">
+      <img id="lightbox-img" src="images/meenakshi-portrait.jpg" alt="Meenakshi Kumawat" class="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl">
+    </div>
+  </div>
+
+  <!-- Profile Editor Modal -->
+  <div id="editor-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 hidden no-print">
+    <div class="bg-[#FAF6F0] rounded-3xl border border-[#C5A059] shadow-2xl w-full max-w-3xl overflow-hidden max-h-[90vh] flex flex-col">
+      
+      <div class="px-6 py-4 bg-[#FDFBF7] border-b border-[#C5A059]/30 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🪷</span>
+          <div>
+            <h2 class="text-lg font-serif font-bold text-[#6E1A2D]">Edit Biodata Information</h2>
+            <span class="text-xs text-[#7A676A]">Update and personalize any details. Changes update the live profile and PDF instantly.</span>
+          </div>
+        </div>
+        <button onclick="closeEditor()" class="p-2 text-[#7A676A] hover:text-[#2D2224] rounded-full cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex border-b border-[#C5A059]/20 bg-[#FDFBF7] px-4 overflow-x-auto gap-1 text-xs font-semibold">
+        <button id="tab-btn-personal" onclick="switchEditorTab('personal')" class="py-3 px-3.5 border-b-2 border-[#88243C] text-[#88243C]">Personal</button>
+        <button id="tab-btn-education" onclick="switchEditorTab('education')" class="py-3 px-3.5 border-b-2 border-transparent text-[#7A676A]">Education & Career</button>
+        <button id="tab-btn-family" onclick="switchEditorTab('family')" class="py-3 px-3.5 border-b-2 border-transparent text-[#7A676A]">Family</button>
+        <button id="tab-btn-gotra" onclick="switchEditorTab('gotra')" class="py-3 px-3.5 border-b-2 border-transparent text-[#7A676A]">Gotras</button>
+        <button id="tab-btn-contact" onclick="switchEditorTab('contact')" class="py-3 px-3.5 border-b-2 border-transparent text-[#7A676A]">Contact</button>
+      </div>
+
+      <!-- Form Body -->
+      <form onsubmit="saveEditorForm(event)" class="flex-1 overflow-y-auto p-6 space-y-4">
+        
+        <!-- Personal Tab Pane -->
+        <div id="tab-pane-personal" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Full Name</label>
+              <input id="edit-fullname" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Date of Birth</label>
+              <input id="edit-dob" type="date" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none" required>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Height</label>
+              <input id="edit-height" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Complexion</label>
+              <input id="edit-complexion" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Religion</label>
+              <input id="edit-religion" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Caste / Community</label>
+              <input id="edit-caste" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Mother Tongue</label>
+              <input id="edit-tongue" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Location</label>
+              <input id="edit-location" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Tab Pane -->
+        <div id="tab-pane-education" class="space-y-4 hidden">
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Highest Education</label>
+            <input id="edit-edu" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Education Details</label>
+            <input id="edit-edudetails" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Specialization</label>
+            <input id="edit-spec" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Occupation & Eligibility</label>
+            <input id="edit-occ" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Career Goal</label>
+            <textarea id="edit-occgoal" rows="2" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Family Tab Pane -->
+        <div id="tab-pane-family" class="space-y-4 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Father's Name</label>
+              <input id="edit-father" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Father's Occupation</label>
+              <input id="edit-fatherocc" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Mother's Name</label>
+              <input id="edit-mother" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Mother's Occupation</label>
+              <input id="edit-motherocc" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Grandfather</label>
+              <input id="edit-gf" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Grandmother</label>
+              <input id="edit-gm" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Brother(s)</label>
+              <input id="edit-brothers" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Sister(s)</label>
+              <input id="edit-sisters" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Paternal Uncles (Chacha / Tauji)</label>
+              <input id="edit-uncles" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Gotra Tab Pane -->
+        <div id="tab-pane-gotra" class="space-y-4 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Self Gotra (Father)</label>
+              <input id="edit-gotra-self" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Mama's Gotra (Maternal)</label>
+              <input id="edit-gotra-mama" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Dadi's Gotra</label>
+              <input id="edit-gotra-dadi" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Nani's Gotra</label>
+              <input id="edit-gotra-nani" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Tab Pane -->
+        <div id="tab-pane-contact" class="space-y-4 hidden">
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#C5A059]/30">
+            <div>
+              <span class="text-xs font-semibold text-[#6E1A2D] block">Enable Contact Section</span>
+              <span class="text-[11px] text-[#7A676A]">Show or hide the contact details on the page</span>
+            </div>
+            <input id="edit-contact-enabled" type="checkbox" class="w-5 h-5 accent-[#88243C]">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Contact Person</label>
+            <input id="edit-contact-person" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">Phone Number</label>
+            <input id="edit-phone" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-[#6E1A2D] block mb-1">City / Location</label>
+            <input id="edit-city" type="text" class="w-full px-3.5 py-2 text-sm rounded-xl bg-white border border-[#C5A059]/40 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#C5A059]/20 flex flex-wrap items-center justify-between gap-3">
+          <button type="button" onclick="resetData()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-[#88243C] hover:bg-[#FCEEE9]">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>Reset to Defaults</span>
+          </button>
+
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#7A676A]">Cancel</button>
+            <button type="submit" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-[#88243C] to-[#6E1A2D] text-white text-xs font-semibold shadow-md border border-[#DFBE76]/40 cursor-pointer">
+              <i data-lucide="save" class="w-4 h-4 text-[#F3E5AB]"></i>
+              <span>Save & Update</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Offscreen Container for PDF Export & Print -->
+  <div class="fixed -left-[9999px] top-0 opacity-0 pointer-events-none print:opacity-100 print:static print:pointer-events-auto">
+    <div id="printable-biodata" class="bg-white text-[#2C1E21] mx-auto p-8 border-[10px] border-[#DFBE76]" style="width: 210mm; min-height: 297mm; box-sizing: border-box;">
+      <!-- Filled dynamically by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
 </html>
