@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-classic: 'Cormorant Garamond', Garamond, serif;
+    --font-royal: 'Marcellus', 'Cinzel', serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-devanagari: 'Rozha One', serif;
+    
+    --color-maroon: #6E1A2D;
+    --color-maroon-dark: #4A0E1C;
+    --color-gold: #C5A059;
+    --color-gold-light: #DFBE76;
+    --color-champagne: #F5EFEB;
+    --color-ivory: #FDFBF7;
+    --color-rose: #FCEEE9;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #FAF6F0;
+    color: #2D2224;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-classic {
+    font-family: var(--font-classic);
+  }
+
+  .font-royal {
+    font-family: var(--font-royal);
+  }
+
+  .font-devanagari {
+    font-family: var(--font-devanagari);
+  }
+}
+
+/* Royal Ornaments & Patterns */
+.bg-mandala-pattern {
+  background-image: radial-gradient(circle at center, rgba(197, 160, 89, 0.08) 1px, transparent 1px),
+                    radial-gradient(circle at center, rgba(110, 26, 45, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.bg-royal-gradient {
+  background: linear-gradient(135deg, #FAF6F0 0%, #FDFBF7 40%, #F9F1E8 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA771C 100%);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #99742B 0%, #C9A048 50%, #805C1B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.maroon-gradient {
+  background: linear-gradient(135deg, #6E1A2D 0%, #8B243E 50%, #4A0E1C 100%);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.35), 0 8px 30px -4px rgba(197, 160, 89, 0.15);
+}
+
+.royal-card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(110, 26, 45, 0.06), 0 2px 6px -1px rgba(197, 160, 89, 0.08);
+}
+
+.royal-hover-lift {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.royal-hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -4px rgba(110, 26, 45, 0.12), 0 4px 10px -2px rgba(197, 160, 89, 0.2);
+}
+
+/* Jharokha Arch Effect */
+.jharokha-frame {
+  border-radius: 180px 180px 16px 16px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF6F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #99793D;
+}
+
+/* Print specific styles for A4 Portrait Biodata export */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .print-break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shadow-lg, .shadow-xl, .shadow-2xl, .royal-card-shadow {
+    box-shadow: none !important;
+    border: 1px solid #D4AF37 !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}
