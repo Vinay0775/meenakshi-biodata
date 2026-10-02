@@ -12,23 +12,9 @@ export const weddingTracks: WeddingTrack[] = [
   {
     id: 'din-shagna',
     title: 'Din Shagna Da (विवाह धुन)',
-    subtitle: 'Traditional Rhythmic Wedding Theme',
+    subtitle: 'Continuous Festive Wedding Loop',
     src: 'audio/wedding-theme.mp3',
-    badge: 'Track 1/3 • Bridal Melody'
-  },
-  {
-    id: 'shehnai-mangal',
-    title: 'Shehnai & Dholak Mangal Dhun',
-    subtitle: 'Festive Dadra Taal Wedding Beat',
-    src: 'audio/shehnai-mangal-dhun.mp3',
-    badge: 'Track 2/3 • Shehnai Utsav'
-  },
-  {
-    id: 'rhythmic-theka',
-    title: 'Live Shaadi Dholak & Shehnai Groove',
-    subtitle: 'Traditional Keherwa Wedding Theka',
-    src: null,
-    badge: 'Track 3/3 • Live Synthesis'
+    badge: 'Looping 🔁'
   }
 ];
 

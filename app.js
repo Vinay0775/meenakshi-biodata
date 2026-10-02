@@ -54,37 +54,63 @@ const defaultData = {
     isContactSectionEnabled: true
   },
   photos: {
+    portrait: 'images/meenakshi-portrait.jpg',
+    purple: 'images/meenakshi-purple-gown.jpg',
+    pink: 'images/meenakshi-pink-lehenga.jpg',
+    traditional: 'images/meenakshi-traditional.jpg',
     primary: 'images/meenakshi-portrait.jpg',
     secondary: 'images/meenakshi-traditional.jpg'
   }
 };
 
 let currentData = loadData();
-let activePhotoKey = 'primary';
+let activePhotoKey = 'portrait';
 let isContactRevealed = false;
 
-// Royal Shaadi Music & Visual Atmosphere State
+// Royal Lookbook Data
+const lookbookData = [
+  {
+    title: 'Graceful Traditional Portrait',
+    hindi: 'सौम्य पारंपरिक भावचित्र',
+    src: 'images/meenakshi-portrait.jpg',
+    badge: 'Look 1 • Classic Portrait',
+    desc: 'Elegant smiling profile photograph radiating warmth, poise, and cultured Rajasthani heritage.'
+  },
+  {
+    title: 'Royal Plum Gown & Traditional Earrings',
+    hindi: 'शाही जामुनी परिधान',
+    src: 'images/meenakshi-purple-gown.jpg',
+    badge: 'Look 2 • Royal Indo-Western',
+    desc: 'Graceful full-length outfit with intricate threadwork embroidery and traditional Rajasthani jhumkas.'
+  },
+  {
+    title: 'Celebration Shimmering Pink Lehenga',
+    hindi: 'उत्सव गुलाबी लहंगा',
+    src: 'images/meenakshi-pink-lehenga.jpg',
+    badge: 'Look 3 • Wedding Celebration Attire',
+    desc: 'Radiant festive occasion look adorned with ornate choker jewelry and shimmering sequin work.'
+  },
+  {
+    title: 'Traditional Heritage Splendor',
+    hindi: 'पारंपरिक धरोहर परिधान',
+    src: 'images/meenakshi-traditional.jpg',
+    badge: 'Look 4 • Traditional Heritage',
+    desc: 'Classic cultural elegance reflecting timeless values, modesty, and grace.'
+  }
+];
+
+let currentLookIndex = 0;
+let isLookbookAutoPlaying = true;
+let lookbookInterval = null;
+
+// Royal Shaadi Background Song: Din Shagna Da (Continuous Loop)
 const weddingTracks = [
   {
     id: 'din-shagna',
     title: 'Din Shagna Da (विवाह धुन)',
-    subtitle: 'Traditional Rhythmic Wedding Theme',
+    subtitle: 'Continuous Festive Wedding Loop',
     src: 'audio/wedding-theme.mp3',
-    badge: 'Track 1/3 • Bridal Melody'
-  },
-  {
-    id: 'shehnai-mangal',
-    title: 'Shehnai & Dholak Mangal Dhun',
-    subtitle: 'Festive Dadra Taal Wedding Beat',
-    src: 'audio/shehnai-mangal-dhun.mp3',
-    badge: 'Track 2/3 • Shehnai Utsav'
-  },
-  {
-    id: 'rhythmic-theka',
-    title: 'Live Shaadi Dholak & Shehnai Groove',
-    subtitle: 'Traditional Keherwa Wedding Theka',
-    src: null, // Pure Web Audio live rhythmic percussion
-    badge: 'Track 3/3 • Live Synthesis'
+    badge: 'Looping 🔁'
   }
 ];
 
@@ -186,7 +212,7 @@ function renderAll() {
   // Hero Image
   const heroImg = document.getElementById('hero-profile-img');
   if (heroImg) {
-    heroImg.src = activePhotoKey === 'primary' ? currentData.photos.primary : currentData.photos.secondary;
+    heroImg.src = currentData.photos[activePhotoKey] || currentData.photos.portrait || currentData.photos.primary;
   }
 
   // Personal Details
@@ -628,8 +654,10 @@ function initWeddingAudio() {
   weddingAudioEl = document.getElementById('wedding-audio-player');
   if (weddingAudioEl) {
     weddingAudioEl.volume = audioVolume;
+    weddingAudioEl.loop = true;
     weddingAudioEl.addEventListener('ended', () => {
-      nextTrack();
+      weddingAudioEl.currentTime = 0;
+      weddingAudioEl.play().catch(e => console.log(e));
     });
     weddingAudioEl.addEventListener('timeupdate', updateAudioProgress);
     weddingAudioEl.addEventListener('loadedmetadata', updateAudioProgress);
@@ -740,6 +768,7 @@ function playCurrentTrack() {
     if (weddingAudioEl.src !== window.location.origin + '/' + track.src && !weddingAudioEl.src.endsWith(track.src)) {
       weddingAudioEl.src = track.src;
     }
+    weddingAudioEl.loop = true;
     weddingAudioEl.volume = audioVolume;
     const playPromise = weddingAudioEl.play();
     if (playPromise !== undefined) {
@@ -752,7 +781,7 @@ function playCurrentTrack() {
         startRhythmicSynth();
         updateAudioUI(true);
         startFloatingNotes();
-        showToast(`Playing: ${weddingTracks[2].title}`);
+        showToast(`Playing: Din Shagna Da (Looping)`);
       });
     }
   } else {
@@ -779,22 +808,16 @@ function pauseAudio() {
 }
 
 function nextTrack() {
-  currentTrackIndex = (currentTrackIndex + 1) % weddingTracks.length;
-  updatePlayerTrackDisplay();
-  if (isAudioPlaying) {
-    playCurrentTrack();
-  } else {
-    showToast(`Selected: ${weddingTracks[currentTrackIndex].title}`);
+  if (weddingAudioEl) {
+    weddingAudioEl.currentTime = 0;
+    if (isAudioPlaying) weddingAudioEl.play().catch(e => console.log(e));
   }
 }
 
 function prevTrack() {
-  currentTrackIndex = (currentTrackIndex - 1 + weddingTracks.length) % weddingTracks.length;
-  updatePlayerTrackDisplay();
-  if (isAudioPlaying) {
-    playCurrentTrack();
-  } else {
-    showToast(`Selected: ${weddingTracks[currentTrackIndex].title}`);
+  if (weddingAudioEl) {
+    weddingAudioEl.currentTime = 0;
+    if (isAudioPlaying) weddingAudioEl.play().catch(e => console.log(e));
   }
 }
 
@@ -873,17 +896,25 @@ function stopFloatingNotes() {
 }
 
 function updateAudioUI(playing) {
-  // Update Navbar button icon
+  // Update Navbar button icon and pill state
   const navIcon = document.getElementById('audio-icon');
   const navBtn = document.getElementById('nav-audio-btn');
+  const navEqBars = document.getElementById('nav-eq-bars');
   if (navIcon) {
     navIcon.setAttribute('data-lucide', playing ? 'volume-2' : 'volume-x');
   }
   if (navBtn) {
     if (playing) {
-      navBtn.classList.add('pulse-gold', 'bg-[#FCEEE9]', 'text-[#88243C]');
+      navBtn.classList.add('playing', 'border-[#88243C]');
     } else {
-      navBtn.classList.remove('pulse-gold', 'bg-[#FCEEE9]', 'text-[#88243C]');
+      navBtn.classList.remove('playing', 'border-[#88243C]');
+    }
+  }
+  if (navEqBars) {
+    if (playing) {
+      navEqBars.classList.add('playing');
+    } else {
+      navEqBars.classList.remove('playing');
     }
   }
 
@@ -891,7 +922,7 @@ function updateAudioUI(playing) {
   const playBtnText = document.getElementById('player-play-text');
   const playBtnIcon = document.getElementById('player-play-icon');
   if (playBtnText) {
-    playBtnText.textContent = playing ? 'Pause Music' : 'Play Wedding Music';
+    playBtnText.textContent = playing ? 'Pause Din Shagna Da' : 'Play Din Shagna Da';
   }
   if (playBtnIcon) {
     playBtnIcon.setAttribute('data-lucide', playing ? 'pause' : 'play');
@@ -925,7 +956,9 @@ function updateAudioUI(playing) {
     }
   }
 
-  if (window.lucide) window.lucide.createIcons();
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 // ==========================================
@@ -1221,39 +1254,179 @@ function togglePetals() {
   }
 }
 
+// ==========================================
+// Royal Lookbook & Gallery Slideshow Controller
+// ==========================================
+
+function showLook(index) {
+  currentLookIndex = (index + lookbookData.length) % lookbookData.length;
+  
+  // Update main slideshow viewport slides
+  const slides = document.querySelectorAll('.lookbook-slide');
+  slides.forEach((s) => {
+    const sIndex = parseInt(s.getAttribute('data-index'), 10);
+    if (sIndex === currentLookIndex) {
+      s.classList.add('active');
+    } else {
+      s.classList.remove('active');
+    }
+  });
+
+  // Update thumbnail cards
+  for (let i = 0; i < lookbookData.length; i++) {
+    const thumb = document.getElementById(`thumb-look-${i}`);
+    if (thumb) {
+      if (i === currentLookIndex) {
+        thumb.classList.add('active');
+      } else {
+        thumb.classList.remove('active');
+      }
+    }
+  }
+
+  // Update slide dots
+  const dotsContainer = document.getElementById('lookbook-dots');
+  if (dotsContainer) {
+    const dots = dotsContainer.querySelectorAll('button');
+    dots.forEach((dot, idx) => {
+      if (idx === currentLookIndex) {
+        dot.className = 'w-4 h-2.5 rounded-full bg-[#DFBE76] transition-all';
+      } else {
+        dot.className = 'w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-white transition-all';
+      }
+    });
+  }
+}
+
+function nextLook() {
+  showLook(currentLookIndex + 1);
+}
+
+function prevLook() {
+  showLook(currentLookIndex - 1);
+}
+
+function toggleLookbookAutoPlay() {
+  isLookbookAutoPlaying = !isLookbookAutoPlaying;
+  const icon = document.getElementById('slideshow-ctrl-icon');
+  const text = document.getElementById('slideshow-ctrl-text');
+  const pill = document.getElementById('lookbook-status-pill');
+
+  if (isLookbookAutoPlaying) {
+    startLookbookTimer();
+    if (icon) icon.setAttribute('data-lucide', 'pause');
+    if (text) text.textContent = 'Pause';
+    if (pill) pill.textContent = 'Slideshow Auto-Playing';
+    showToast('Lookbook auto-slideshow active');
+  } else {
+    stopLookbookTimer();
+    if (icon) icon.setAttribute('data-lucide', 'play');
+    if (text) text.textContent = 'Play';
+    if (pill) pill.textContent = 'Slideshow Paused';
+    showToast('Lookbook auto-slideshow paused');
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function startLookbookTimer() {
+  stopLookbookTimer();
+  lookbookInterval = setInterval(() => {
+    if (isLookbookAutoPlaying) {
+      nextLook();
+    }
+  }, 4500);
+}
+
+function stopLookbookTimer() {
+  if (lookbookInterval) {
+    clearInterval(lookbookInterval);
+    lookbookInterval = null;
+  }
+}
+
+// Lightbox modal handlers
+function openLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  const img = document.getElementById('lightbox-img');
+  const heroImg = document.getElementById('hero-profile-img');
+  if (modal && img && heroImg) {
+    img.src = heroImg.src;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function openGalleryLightbox() {
+  openCustomLightbox(currentLookIndex);
+}
+
+function openCustomLightbox(index) {
+  const modal = document.getElementById('lightbox-modal');
+  const img = document.getElementById('lightbox-img');
+  if (modal && img && lookbookData[index]) {
+    img.src = lookbookData[index].src;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'unset';
+  }
+}
+
 // Event Listeners on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   renderAll();
   initWeddingAudio();
   initWeddingPetals();
+  startLookbookTimer();
 
-  // Photo Switcher
+  // Pause slideshow on hover over viewport for seamless reading
+  const viewport = document.getElementById('lookbook-viewport');
+  if (viewport) {
+    viewport.addEventListener('mouseenter', () => stopLookbookTimer());
+    viewport.addEventListener('mouseleave', () => {
+      if (isLookbookAutoPlaying) startLookbookTimer();
+    });
+  }
+
+  // 4-Look Hero Photo Switcher
   const btnPortrait = document.getElementById('btn-photo-portrait');
+  const btnPurple = document.getElementById('btn-photo-purple');
+  const btnPink = document.getElementById('btn-photo-pink');
   const btnTrad = document.getElementById('btn-photo-traditional');
-  if (btnPortrait) {
-    btnPortrait.addEventListener('click', () => {
-      activePhotoKey = 'primary';
-      btnPortrait.classList.add('bg-[#88243C]', 'text-white');
-      btnPortrait.classList.remove('text-[#6E1A2D]');
-      if (btnTrad) {
-        btnTrad.classList.remove('bg-[#88243C]', 'text-white');
-        btnTrad.classList.add('text-[#6E1A2D]');
-      }
-      renderAll();
-    });
-  }
-  if (btnTrad) {
-    btnTrad.addEventListener('click', () => {
-      activePhotoKey = 'secondary';
-      btnTrad.classList.add('bg-[#88243C]', 'text-white');
-      btnTrad.classList.remove('text-[#6E1A2D]');
-      if (btnPortrait) {
-        btnPortrait.classList.remove('bg-[#88243C]', 'text-white');
-        btnPortrait.classList.add('text-[#6E1A2D]');
-      }
-      renderAll();
-    });
-  }
+  
+  const heroButtons = [
+    { el: btnPortrait, key: 'portrait', src: 'images/meenakshi-portrait.jpg' },
+    { el: btnPurple, key: 'purple', src: 'images/meenakshi-purple-gown.jpg' },
+    { el: btnPink, key: 'pink', src: 'images/meenakshi-pink-lehenga.jpg' },
+    { el: btnTrad, key: 'traditional', src: 'images/meenakshi-traditional.jpg' }
+  ];
+
+  heroButtons.forEach(btn => {
+    if (btn.el) {
+      btn.el.addEventListener('click', () => {
+        activePhotoKey = btn.key;
+        heroButtons.forEach(b => {
+          if (b.el) {
+            if (b.key === btn.key) {
+              b.el.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#88243C] text-white shadow-xs transition-all';
+            } else {
+              b.el.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all';
+            }
+          }
+        });
+        const heroImg = document.getElementById('hero-profile-img');
+        if (heroImg) {
+          heroImg.src = currentData.photos[btn.key] || btn.src;
+        }
+      });
+    }
+  });
 
   // Photo Upload
   const photoInput = document.getElementById('photo-upload-input');

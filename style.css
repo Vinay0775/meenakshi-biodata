@@ -56,6 +56,88 @@ h1, h2, h3, .font-serif {
     radial-gradient(circle at 90% 35%, rgba(197, 160, 89, 0.06) 0%, transparent 35%);
 }
 
+/* Ultra-Dynamic Navbar Styling */
+.navbar-royal {
+  background: rgba(253, 251, 247, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.35);
+  box-shadow: 0 4px 20px -2px rgba(110, 26, 45, 0.05), 0 2px 6px -1px rgba(197, 160, 89, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link-dynamic {
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.nav-link-dynamic::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #88243C, #C5A059);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link-dynamic:hover::after {
+  width: 80%;
+}
+
+.nav-audio-pill {
+  position: relative;
+  background: linear-gradient(135deg, rgba(253, 251, 247, 0.95), rgba(252, 238, 233, 0.9));
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-audio-pill.playing {
+  border-color: #88243C;
+  box-shadow: 0 0 16px rgba(136, 36, 60, 0.25), 0 0 4px rgba(197, 160, 89, 0.4);
+}
+
+/* Royal Gallery & Lookbook Carousel */
+.lookbook-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.lookbook-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.ken-burns-img {
+  transition: transform 10s ease-out;
+}
+
+.lookbook-slide.active .ken-burns-img {
+  transform: scale(1.05);
+}
+
+.lookbook-thumb-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lookbook-thumb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px -3px rgba(110, 26, 45, 0.15);
+}
+
+.lookbook-thumb-card.active {
+  border-color: #88243C;
+  box-shadow: 0 0 0 2px #88243C, 0 8px 20px -2px rgba(136, 36, 60, 0.2);
+}
+
 /* Shaadi Corner & Side Watermark Motifs */
 .shaadi-motif-left,
 .shaadi-motif-right {

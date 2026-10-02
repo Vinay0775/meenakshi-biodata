@@ -149,79 +149,115 @@
     <span id="toast-message" class="text-xs font-semibold">Action completed</span>
   </div>
 
-  <!-- Header / Navigation Bar -->
-  <header class="sticky top-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md border-b border-[#C5A059]/30 py-3 no-print">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+  <!-- Ultra-Dynamic Royal Header / Navigation Bar -->
+  <header class="navbar-royal sticky top-0 z-40 py-2.5 sm:py-3 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">
       
-      <!-- Brand Logo -->
-      <a href="#hero" class="flex items-center gap-2 group">
-        <div class="w-8 h-8 rounded-full border border-[#C5A059] flex items-center justify-center bg-[#FDFBF7] shadow-xs text-[#88243C]">
-          🪷
+      <!-- Brand Logo with Glowing Lotus -->
+      <a href="#hero" class="flex items-center gap-2.5 group shrink-0">
+        <div class="w-9 h-9 rounded-full border border-[#C5A059] flex items-center justify-center bg-gradient-to-br from-[#FFFDF9] to-[#FCEEE9] shadow-sm text-[#88243C] group-hover:scale-105 transition-transform">
+          <span class="text-base select-none">🪷</span>
         </div>
         <div>
-          <span class="font-serif font-bold text-lg tracking-wider text-[#6E1A2D]">MEENAKSHI</span>
-          <span class="text-[10px] tracking-widest uppercase block text-[#C5A059] font-medium">Matrimonial Profile</span>
+          <span class="font-serif font-bold text-lg sm:text-xl tracking-wider text-[#6E1A2D] block leading-none group-hover:text-[#88243C] transition-colors">MEENAKSHI</span>
+          <span class="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase block text-[#99742B] font-semibold mt-0.5">Matrimonial Biodata</span>
         </div>
       </a>
 
-      <!-- Desktop Links -->
-      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-[#4A3B3E]">
-        <a href="#hero" class="hover:text-[#88243C] transition-colors">Overview</a>
-        <a href="#personal" class="hover:text-[#88243C] transition-colors">Personal Details</a>
-        <a href="#education" class="hover:text-[#88243C] transition-colors">Education & Career</a>
-        <a href="#family" class="hover:text-[#88243C] transition-colors">Family Background</a>
-        <a href="#gotra" class="hover:text-[#88243C] transition-colors">Gotra Heritage</a>
-        <a href="#contact" class="hover:text-[#88243C] transition-colors">Contact</a>
+      <!-- Desktop Dynamic Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-5 xl:space-x-7 text-xs uppercase tracking-wider font-semibold text-[#523F42]">
+        <a href="#hero" class="nav-link-dynamic hover:text-[#88243C] py-1">Overview</a>
+        <a href="#gallery" class="nav-link-dynamic text-[#88243C] py-1 flex items-center gap-1 font-bold">
+          <span class="text-[#C5A059]">✦</span>
+          <span>Lookbook Gallery</span>
+          <span class="px-1.5 py-0.2 text-[8px] bg-[#88243C] text-white rounded-full">New</span>
+        </a>
+        <a href="#personal" class="nav-link-dynamic hover:text-[#88243C] py-1">Personal</a>
+        <a href="#education" class="nav-link-dynamic hover:text-[#88243C] py-1">Education</a>
+        <a href="#family" class="nav-link-dynamic hover:text-[#88243C] py-1">Family</a>
+        <a href="#gotra" class="nav-link-dynamic hover:text-[#88243C] py-1">Gotra</a>
+        <a href="#contact" class="nav-link-dynamic hover:text-[#88243C] py-1">Contact</a>
       </nav>
 
       <!-- Action Buttons -->
-      <div class="flex items-center gap-2">
-        <!-- Audio Button -->
-        <button onclick="toggleAudio()" title="Traditional Ambiance Music" class="p-2 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
-          <i id="audio-icon" data-lucide="volume-x" class="w-4 h-4"></i>
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <!-- Ultra-Dynamic Audio Indicator Pill Button -->
+        <button id="nav-audio-btn" onclick="toggleAudio()" title="Wedding Song: Din Shagna Da (Looping)" class="nav-audio-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[#6E1A2D] cursor-pointer shadow-xs hover:border-[#88243C] transition-all">
+          <i id="audio-icon" data-lucide="volume-x" class="w-3.5 h-3.5 text-[#88243C]"></i>
+          <span class="hidden md:inline text-[11px] font-serif text-[#88243C]">Din Shagna Da</span>
+          <div class="audio-eq-bars flex items-end gap-0.5 h-3 ml-0.5" id="nav-eq-bars">
+            <span class="eq-bar h-1"></span>
+            <span class="eq-bar h-2"></span>
+            <span class="eq-bar h-1.5"></span>
+          </div>
         </button>
 
         <!-- Share Button -->
-        <button onclick="shareProfile()" title="Share Profile" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
-          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-          <span>Share</span>
+        <button onclick="shareProfile()" title="Share Profile" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs cursor-pointer">
+          <i data-lucide="share-2" class="w-3 h-3 text-[#88243C]"></i>
+          <span class="hidden md:inline">Share</span>
         </button>
 
         <!-- Print Button -->
-        <button onclick="window.print()" title="Print Profile" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs">
-          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+        <button onclick="window.print()" title="Print Profile" class="hidden xl:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all shadow-xs cursor-pointer">
+          <i data-lucide="printer" class="w-3 h-3 text-[#88243C]"></i>
           <span>Print</span>
         </button>
 
         <!-- Edit Profile Button -->
-        <button onclick="openEditor()" title="Edit Profile Details" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#C5A059] bg-[#FDFBF7] text-xs font-medium text-[#88243C] hover:bg-[#88243C] hover:text-white transition-all shadow-xs">
-          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Edit Details</span>
+        <button onclick="openEditor()" title="Edit Profile Details" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#C5A059] bg-[#FDFBF7] text-xs font-medium text-[#88243C] hover:bg-[#88243C] hover:text-white transition-all shadow-xs cursor-pointer">
+          <i data-lucide="edit-3" class="w-3 h-3"></i>
+          <span class="hidden sm:inline">Edit</span>
         </button>
 
-        <!-- PDF Biodata Button -->
-        <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#88243C] to-[#6E1A2D] text-white text-xs font-semibold shadow-md hover:brightness-110 transition-all border border-[#DFBE76]/40 cursor-pointer">
+        <!-- Dynamic Golden PDF Button with Shimmer -->
+        <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-[#88243C] via-[#9E2A44] to-[#6E1A2D] text-white text-xs font-semibold shadow-md hover:shadow-lg hover:brightness-110 active:scale-95 transition-all border border-[#DFBE76]/60 cursor-pointer">
           <i data-lucide="download" class="w-3.5 h-3.5 text-[#F3E5AB]"></i>
-          <span>PDF Biodata</span>
+          <span class="tracking-wide">PDF Biodata</span>
         </button>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden p-2 text-[#6E1A2D] hover:bg-[#FCEEE9] rounded-lg">
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="lg:hidden p-2 text-[#6E1A2D] hover:bg-[#FCEEE9] rounded-xl border border-[#C5A059]/30 transition-colors">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
 
     </div>
 
-    <!-- Mobile Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden bg-[#FDFBF7] border-b border-[#C5A059]/30 px-6 py-4 shadow-xl">
-      <nav class="flex flex-col space-y-2.5 text-sm font-medium text-[#4A3B3E]">
-        <a href="#hero" class="py-1.5 border-b border-[#C5A059]/15">Overview</a>
-        <a href="#personal" class="py-1.5 border-b border-[#C5A059]/15">Personal Details</a>
-        <a href="#education" class="py-1.5 border-b border-[#C5A059]/15">Education & Career</a>
-        <a href="#family" class="py-1.5 border-b border-[#C5A059]/15">Family Background</a>
-        <a href="#gotra" class="py-1.5 border-b border-[#C5A059]/15">Gotra Heritage</a>
-        <a href="#contact" class="py-1.5">Contact Information</a>
+    <!-- Dynamic Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#FDFBF7]/98 border-b border-[#C5A059]/40 px-6 py-4 shadow-xl backdrop-blur-md">
+      <nav class="flex flex-col space-y-2 text-xs uppercase tracking-wider font-semibold text-[#523F42]">
+        <a href="#hero" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between hover:text-[#88243C]">
+          <span>Overview</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
+        <a href="#gallery" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between text-[#88243C] font-bold bg-[#FCEEE9]/40 px-2 rounded-lg">
+          <span class="flex items-center gap-2">
+            <span>✦</span>
+            <span>Lookbook Photo Gallery</span>
+          </span>
+          <span class="px-1.5 py-0.5 text-[8px] bg-[#88243C] text-white rounded-full">4 Photos</span>
+        </a>
+        <a href="#personal" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between hover:text-[#88243C]">
+          <span>Personal Details</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
+        <a href="#education" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between hover:text-[#88243C]">
+          <span>Education & Career</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
+        <a href="#family" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between hover:text-[#88243C]">
+          <span>Family Background</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
+        <a href="#gotra" class="py-2 border-b border-[#C5A059]/15 flex items-center justify-between hover:text-[#88243C]">
+          <span>Gotra Heritage (4-Gotra)</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
+        <a href="#contact" class="py-2 flex items-center justify-between hover:text-[#88243C]">
+          <span>Contact Information</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+        </a>
       </nav>
     </div>
   </header>
@@ -382,15 +418,17 @@
               </div>
 
               <!-- Photo Switcher & Change Photo -->
-              <div class="mt-4 flex items-center justify-between gap-2 w-full px-1">
-                <div class="flex items-center gap-1.5 bg-[#FAF6F0] p-1 rounded-full border border-[#C5A059]/40">
-                  <button id="btn-photo-portrait" class="px-3 py-1 rounded-full text-xs font-medium bg-[#88243C] text-white shadow-xs transition-all">Portrait</button>
-                  <button id="btn-photo-traditional" class="px-3 py-1 rounded-full text-xs font-medium text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all">Traditional</button>
+              <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 w-full px-1">
+                <div class="flex items-center flex-wrap gap-1 bg-[#FAF6F0] p-1 rounded-2xl border border-[#C5A059]/40">
+                  <button id="btn-photo-portrait" class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#88243C] text-white shadow-xs transition-all">Portrait</button>
+                  <button id="btn-photo-purple" class="px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all">Plum Gown</button>
+                  <button id="btn-photo-pink" class="px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all">Pink Lehenga</button>
+                  <button id="btn-photo-traditional" class="px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#6E1A2D] hover:bg-[#FCEEE9] transition-all">Traditional</button>
                 </div>
 
                 <label class="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium text-[#6E1A2D] bg-[#FCEEE9] hover:bg-[#F7D6D0] border border-[#C5A059]/40 transition-colors">
                   <i data-lucide="upload" class="w-3 h-3 text-[#88243C]"></i>
-                  <span>Change</span>
+                  <span>Upload</span>
                   <input id="photo-upload-input" type="file" accept="image/*" class="hidden">
                 </label>
               </div>
@@ -505,9 +543,9 @@
 
             <!-- Quick Action Buttons -->
             <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
-              <a href="#personal" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#88243C] text-white text-xs sm:text-sm font-semibold hover:bg-[#6E1A2D] shadow-md transition-all">
-                <span>View Full Details</span>
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              <a href="#gallery" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#88243C] text-white text-xs sm:text-sm font-semibold hover:bg-[#6E1A2D] shadow-md transition-all">
+                <span>✦ View Photo Lookbook</span>
+                <i data-lucide="arrow-down" class="w-4 h-4"></i>
               </a>
 
               <button onclick="downloadPDF()" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#FAF6F0] text-[#6E1A2D] text-xs sm:text-sm font-semibold border border-[#C5A059] hover:bg-[#FCEEE9] transition-all cursor-pointer">
@@ -519,6 +557,218 @@
                 <i data-lucide="phone-call" class="w-3.5 h-3.5 text-[#88243C]"></i>
                 <span>Contact Parents</span>
               </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Royal Lookbook & Photo Gallery Section -->
+    <section id="gallery" class="py-12 sm:py-16 relative overflow-hidden">
+      <!-- Section Header -->
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 text-xs font-royal uppercase tracking-widest text-[#99742B] px-3.5 py-1 rounded-full bg-[#FAF6F0] border border-[#C5A059]/40 shadow-xs">
+          <span>✦</span><span>Royal Lookbook & Traditional Attire • छवि दीर्घा</span><span>✦</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#6E1A2D] mt-2">Meenakshi's Photo Gallery</h2>
+        <div class="flex items-center justify-center my-3 gap-3 text-[#C5A059]">
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+          <span class="text-base">🪷</span>
+          <div class="h-[1px] w-16 border-t border-[#C5A059]/40"></div>
+        </div>
+        <p class="max-w-xl mx-auto text-xs sm:text-sm text-[#5C4B4E]">
+          Explore authentic photographs featuring graceful traditional ethnic attire, celebration lehengas, and contemporary festive elegance.
+        </p>
+      </div>
+
+      <!-- Main Showcase Container -->
+      <div class="max-w-5xl mx-auto">
+        <!-- Arched Royal Display Frame with Auto-Slideshow -->
+        <div class="relative rounded-3xl bg-gradient-to-b from-[#FAF6F0] to-[#FCEEE9] border-2 border-[#C5A059]/50 shadow-2xl p-3 sm:p-5 overflow-hidden">
+          
+          <!-- Top Ornamental Header Bar -->
+          <div class="flex items-center justify-between px-2 pb-3 mb-2 border-b border-[#C5A059]/30 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#88243C] animate-ping"></span>
+              <span id="lookbook-status-pill" class="text-[11px] font-semibold text-[#88243C] uppercase tracking-wider">
+                Slideshow Auto-Playing
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="toggleLookbookAutoPlay()" id="btn-toggle-slideshow" title="Play / Pause Auto-Slideshow" class="px-2.5 py-1 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-[#6E1A2D] text-[11px] font-medium flex items-center gap-1 hover:bg-[#FAF6F0] transition-colors cursor-pointer">
+                <i id="slideshow-ctrl-icon" data-lucide="pause" class="w-3 h-3"></i>
+                <span id="slideshow-ctrl-text">Pause</span>
+              </button>
+              <button onclick="openGalleryLightbox()" title="View in Fullscreen Lightbox" class="px-2.5 py-1 rounded-full border border-[#C5A059]/40 bg-[#FDFBF7] text-[#6E1A2D] text-[11px] font-medium flex items-center gap-1 hover:bg-[#FAF6F0] transition-colors cursor-pointer">
+                <i data-lucide="maximize-2" class="w-3 h-3 text-[#88243C]"></i>
+                <span class="hidden sm:inline">Fullscreen</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- The Viewport & Slides -->
+          <div class="relative aspect-[4/5] sm:aspect-[16/10] md:aspect-[16/9] w-full rounded-2xl overflow-hidden bg-[#2D161C] shadow-inner select-none" id="lookbook-viewport">
+            
+            <!-- Slide 0: Graceful Portrait -->
+            <div class="lookbook-slide active" data-index="0">
+              <img src="images/meenakshi-portrait.jpg" alt="Meenakshi Kumawat — Graceful Portrait" class="w-full h-full object-cover ken-burns-img" style="object-position: center 20%;">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2D161C]/90 via-[#2D161C]/25 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-white">
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#88243C] text-[10px] font-semibold tracking-wider uppercase border border-[#DFBE76]/40 text-[#F3E5AB] mb-1.5">
+                    Look 1 • Classic Portrait
+                  </span>
+                  <h3 class="text-lg sm:text-2xl font-serif font-bold text-[#FFFDF9] drop-shadow-md">
+                    Graceful Traditional Portrait
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#F8F3E6]/90 line-clamp-2 max-w-lg mt-0.5">
+                    Elegant smiling profile photograph radiating warmth, poise, and cultured Rajasthani heritage.
+                  </p>
+                </div>
+                <button onclick="openCustomLightbox(0)" class="self-start sm:self-auto shrink-0 px-3.5 py-1.5 rounded-full bg-white/90 text-[#6E1A2D] text-xs font-semibold hover:bg-white transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                  <span>View High-Res</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 1: Royal Plum Anarkali Gown -->
+            <div class="lookbook-slide" data-index="1">
+              <img src="images/meenakshi-purple-gown.jpg" alt="Meenakshi Kumawat — Royal Plum Indo-Western Gown" class="w-full h-full object-cover ken-burns-img" style="object-position: center 25%;">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2D161C]/90 via-[#2D161C]/25 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-white">
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#88243C] text-[10px] font-semibold tracking-wider uppercase border border-[#DFBE76]/40 text-[#F3E5AB] mb-1.5">
+                    Look 2 • Royal Indo-Western
+                  </span>
+                  <h3 class="text-lg sm:text-2xl font-serif font-bold text-[#FFFDF9] drop-shadow-md">
+                    Royal Plum Gown & Traditional Earrings
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#F8F3E6]/90 line-clamp-2 max-w-lg mt-0.5">
+                    Graceful full-length outfit with intricate threadwork embroidery and traditional Rajasthani jhumkas.
+                  </p>
+                </div>
+                <button onclick="openCustomLightbox(1)" class="self-start sm:self-auto shrink-0 px-3.5 py-1.5 rounded-full bg-white/90 text-[#6E1A2D] text-xs font-semibold hover:bg-white transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                  <span>View High-Res</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 2: Designer Pink Lehenga -->
+            <div class="lookbook-slide" data-index="2">
+              <img src="images/meenakshi-pink-lehenga.jpg" alt="Meenakshi Kumawat — Designer Pink Lehenga" class="w-full h-full object-cover ken-burns-img" style="object-position: center 20%;">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2D161C]/90 via-[#2D161C]/25 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-white">
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#88243C] text-[10px] font-semibold tracking-wider uppercase border border-[#DFBE76]/40 text-[#F3E5AB] mb-1.5">
+                    Look 3 • Wedding Celebration Attire
+                  </span>
+                  <h3 class="text-lg sm:text-2xl font-serif font-bold text-[#FFFDF9] drop-shadow-md">
+                    Celebration Shimmering Pink Lehenga
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#F8F3E6]/90 line-clamp-2 max-w-lg mt-0.5">
+                    Radiant festive occasion look adorned with ornate choker jewelry and shimmering sequin work.
+                  </p>
+                </div>
+                <button onclick="openCustomLightbox(2)" class="self-start sm:self-auto shrink-0 px-3.5 py-1.5 rounded-full bg-white/90 text-[#6E1A2D] text-xs font-semibold hover:bg-white transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                  <span>View High-Res</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Slide 3: Traditional Silk Ensemble -->
+            <div class="lookbook-slide" data-index="3">
+              <img src="images/meenakshi-traditional.jpg" alt="Meenakshi Kumawat — Traditional Saree Ensemble" class="w-full h-full object-cover ken-burns-img" style="object-position: center 15%;">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2D161C]/90 via-[#2D161C]/25 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-white">
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#88243C] text-[10px] font-semibold tracking-wider uppercase border border-[#DFBE76]/40 text-[#F3E5AB] mb-1.5">
+                    Look 4 • Traditional Heritage
+                  </span>
+                  <h3 class="text-lg sm:text-2xl font-serif font-bold text-[#FFFDF9] drop-shadow-md">
+                    Traditional Heritage Splendor
+                  </h3>
+                  <p class="text-xs sm:text-sm text-[#F8F3E6]/90 line-clamp-2 max-w-lg mt-0.5">
+                    Classic cultural elegance reflecting timeless values, modesty, and grace.
+                  </p>
+                </div>
+                <button onclick="openCustomLightbox(3)" class="self-start sm:self-auto shrink-0 px-3.5 py-1.5 rounded-full bg-white/90 text-[#6E1A2D] text-xs font-semibold hover:bg-white transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+                  <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                  <span>View High-Res</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Prev / Next Navigation Arrows -->
+            <button onclick="prevLook()" title="Previous Photo" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-[#88243C] text-white flex items-center justify-center transition-all backdrop-blur-sm border border-white/20 shadow-lg cursor-pointer">
+              <i data-lucide="chevron-left" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+            <button onclick="nextLook()" title="Next Photo" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 hover:bg-[#88243C] text-white flex items-center justify-center transition-all backdrop-blur-sm border border-white/20 shadow-lg cursor-pointer">
+              <i data-lucide="chevron-right" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+
+            <!-- Bottom Slide Dots -->
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10" id="lookbook-dots">
+              <button onclick="showLook(0)" class="w-2.5 h-2.5 rounded-full bg-white transition-all" aria-label="Slide 1"></button>
+              <button onclick="showLook(1)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-white transition-all" aria-label="Slide 2"></button>
+              <button onclick="showLook(2)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-white transition-all" aria-label="Slide 3"></button>
+              <button onclick="showLook(3)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-white transition-all" aria-label="Slide 4"></button>
+            </div>
+          </div>
+
+          <!-- Interactive Thumbnail Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 mt-4">
+            
+            <!-- Thumb 0 -->
+            <div onclick="showLook(0)" class="lookbook-thumb-card active cursor-pointer p-1.5 sm:p-2 rounded-xl bg-white border border-[#C5A059]/40 flex items-center gap-2.5" id="thumb-look-0">
+              <div class="w-12 h-14 sm:w-14 sm:h-16 rounded-lg overflow-hidden shrink-0 border border-[#C5A059]/30">
+                <img src="images/meenakshi-portrait.jpg" alt="Look 1 thumbnail" class="w-full h-full object-cover" style="object-position: center 20%;">
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-[9px] uppercase font-bold text-[#88243C] block tracking-wider">Look 1</span>
+                <span class="text-xs font-semibold text-[#2D2224] block truncate">Portrait</span>
+                <span class="text-[10px] text-[#7A676A] block truncate">सौम्य छवि</span>
+              </div>
+            </div>
+
+            <!-- Thumb 1 -->
+            <div onclick="showLook(1)" class="lookbook-thumb-card cursor-pointer p-1.5 sm:p-2 rounded-xl bg-white border border-[#C5A059]/40 flex items-center gap-2.5" id="thumb-look-1">
+              <div class="w-12 h-14 sm:w-14 sm:h-16 rounded-lg overflow-hidden shrink-0 border border-[#C5A059]/30">
+                <img src="images/meenakshi-purple-gown.jpg" alt="Look 2 thumbnail" class="w-full h-full object-cover" style="object-position: center 25%;">
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-[9px] uppercase font-bold text-[#88243C] block tracking-wider">Look 2</span>
+                <span class="text-xs font-semibold text-[#2D2224] block truncate">Plum Anarkali</span>
+                <span class="text-[10px] text-[#7A676A] block truncate">शाही गाउन</span>
+              </div>
+            </div>
+
+            <!-- Thumb 2 -->
+            <div onclick="showLook(2)" class="lookbook-thumb-card cursor-pointer p-1.5 sm:p-2 rounded-xl bg-white border border-[#C5A059]/40 flex items-center gap-2.5" id="thumb-look-2">
+              <div class="w-12 h-14 sm:w-14 sm:h-16 rounded-lg overflow-hidden shrink-0 border border-[#C5A059]/30">
+                <img src="images/meenakshi-pink-lehenga.jpg" alt="Look 3 thumbnail" class="w-full h-full object-cover" style="object-position: center 20%;">
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-[9px] uppercase font-bold text-[#88243C] block tracking-wider">Look 3</span>
+                <span class="text-xs font-semibold text-[#2D2224] block truncate">Pink Lehenga</span>
+                <span class="text-[10px] text-[#7A676A] block truncate">उत्सव परिधान</span>
+              </div>
+            </div>
+
+            <!-- Thumb 3 -->
+            <div onclick="showLook(3)" class="lookbook-thumb-card cursor-pointer p-1.5 sm:p-2 rounded-xl bg-white border border-[#C5A059]/40 flex items-center gap-2.5" id="thumb-look-3">
+              <div class="w-12 h-14 sm:w-14 sm:h-16 rounded-lg overflow-hidden shrink-0 border border-[#C5A059]/30">
+                <img src="images/meenakshi-traditional.jpg" alt="Look 4 thumbnail" class="w-full h-full object-cover" style="object-position: center 15%;">
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-[9px] uppercase font-bold text-[#88243C] block tracking-wider">Look 4</span>
+                <span class="text-xs font-semibold text-[#2D2224] block truncate">Traditional</span>
+                <span class="text-[10px] text-[#7A676A] block truncate">पारंपरिक धरोहर</span>
+              </div>
             </div>
 
           </div>
@@ -1444,11 +1694,11 @@
         <!-- Track Info Card -->
         <div class="bg-[#FAF6F0] p-2 sm:p-2.5 rounded-xl border border-[#C5A059]/30 flex items-center justify-between gap-2">
           <div class="overflow-hidden">
-            <span id="player-track-title" class="font-serif font-bold text-xs text-[#6E1A2D] block truncate">Din Shagna Da</span>
-            <span id="player-track-subtitle" class="text-[10px] text-[#805C1B] block truncate">Traditional Rhythmic Wedding Theme</span>
+            <span id="player-track-title" class="font-serif font-bold text-xs text-[#6E1A2D] block truncate">Din Shagna Da (विवाह धुन)</span>
+            <span id="player-track-subtitle" class="text-[10px] text-[#805C1B] block truncate">Continuous Festive Wedding Loop</span>
           </div>
-          <span id="player-track-badge" class="shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#88243C]/10 text-[#88243C] border border-[#88243C]/20">
-            Track 1/3
+          <span id="player-track-badge" class="shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#88243C]/10 text-[#88243C] border border-[#88243C]/20 flex items-center gap-1">
+            <span>🔁</span> Loop ON
           </span>
         </div>
 
@@ -1465,20 +1715,16 @@
 
         <!-- Controls Row -->
         <div class="flex items-center justify-between gap-2">
-          <!-- Track Switcher (Prev/Next) -->
-          <div class="flex items-center gap-1.5">
-            <button onclick="prevTrack()" title="Previous Festive Track" class="w-8 h-8 rounded-full border border-[#C5A059]/40 bg-white hover:bg-[#FCEEE9] text-[#6E1A2D] flex items-center justify-center transition-colors shadow-xs cursor-pointer">
-              <i data-lucide="skip-back" class="w-3.5 h-3.5"></i>
-            </button>
-            <button onclick="nextTrack()" title="Next Festive Track" class="w-8 h-8 rounded-full border border-[#C5A059]/40 bg-white hover:bg-[#FCEEE9] text-[#6E1A2D] flex items-center justify-center transition-colors shadow-xs cursor-pointer">
-              <i data-lucide="skip-forward" class="w-3.5 h-3.5"></i>
-            </button>
+          <!-- Loop Active Indicator Badge -->
+          <div class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white border border-[#C5A059]/40 text-[#88243C] text-[11px] font-semibold shrink-0 shadow-xs" title="Auto-loops endlessly">
+            <span class="text-xs">🔁</span>
+            <span class="hidden sm:inline text-[10px]">Auto Loop</span>
           </div>
 
           <!-- Main Play / Pause Button -->
           <button id="player-main-play-btn" onclick="toggleAudio()" class="flex-1 py-2 px-3 sm:px-4 rounded-xl bg-gradient-to-r from-[#88243C] to-[#6E1A2D] hover:brightness-110 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md border border-[#DFBE76]/50 transition-all cursor-pointer">
             <i id="player-play-icon" data-lucide="play" class="w-3.5 h-3.5 fill-current text-[#F3E5AB]"></i>
-            <span id="player-play-text">Play Wedding Music</span>
+            <span id="player-play-text">Play Din Shagna Da</span>
           </button>
         </div>
 
